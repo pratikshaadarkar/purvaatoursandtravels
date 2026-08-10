@@ -152,7 +152,7 @@ const App=()=>{
   return h('div',null,
     modal&&h(EnquiryModal,{tourTitle:modal,onClose:()=>setModal(null)}),
     h(Navbar),
-    h('section',{className:'hero-section',style:{background:'linear-gradient(135deg, #432267 0%, #2d1845 100%)'}},
+    h('section',{className:'hero-section',style:{backgroundImage:"url('./assets/images/terms-hero.jpg')",backgroundSize:'cover',backgroundPosition:'center'}},
       h('h1',null,'Terms & Conditions')
   ),
   h('div',{className:'content-wrapper'},
