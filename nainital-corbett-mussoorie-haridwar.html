@@ -254,7 +254,7 @@ const Navbar = () => {
   return h('nav',{className:'nav-bar'},
     h('div',{style:{maxWidth:1280,margin:'0 auto',padding:'14px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:24}},
       h('a',{href:'#',style:{display:'flex',alignItems:'center',flexShrink:0,textDecoration:'none'}},
-        h('img',{src:'../logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
+        h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
       ),
       h('div',{style:{display:'flex',alignItems:'center',gap:32,fontSize:18,fontWeight:500}},
         ['About Us','Our Tours','Gallery','Contact Us'].map(l=>
@@ -287,7 +287,7 @@ const Navbar = () => {
 /* ── PHOTO MOSAIC ── */
 const PhotoMosaic = () =>
   h('div',{className:'mosaic'},
-    h('img',{src:'../tour-images/haridwar.jpg',alt:'Nainital, Corbett, Mussoorie & Haridwar'})
+    h('img',{src:'./assets/images/tour-images/haridwar.jpg',alt:'Nainital, Corbett, Mussoorie & Haridwar'})
   );
 
 /* ── SIDEBAR CARD ── */
@@ -407,7 +407,7 @@ const TourPriceTab = () =>
 const Footer = () => h('footer',{style:{background:'#2d1845'}},
   h('div',{style:{maxWidth:1200,margin:'0 auto',padding:'60px 80px 48px',display:'grid',gridTemplateColumns:'38% 22% 40%',gap:72}},
     h('div',{style:{marginTop:'-20px'}},
-      h('img',{src:'../logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
+      h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
       h('p',{style:{fontSize:15,color:'rgba(255,255,255,0.68)',lineHeight:1.85,marginBottom:28,fontFamily:"'DM Sans',sans-serif",maxWidth:340}},'Purvaa is the travel management company Mumbai families have trusted since 1996 because we handle everything personally and have maintained our quality standards across 30 years.'),
       h('button',{
         onClick:()=>__openModal('Quick Enquiry'),
@@ -485,7 +485,7 @@ const App = () => {
         h('div',{className:'tp-content'},
           h('div',{className:'breadcrumb'},
             h('a',{href:'../index.html'},'Home'),h('span',null,'>'),
-            h('a',{href:'../our-tours.html'},'Our Tours'),h('span',null,'>'),
+            h('a',{href:'./our-tours.html'},'Our Tours'),h('span',null,'>'),
             h('span',{style:{color:'#666'}},'Nainital, Corbett, Mussoorie & Haridwar')
           ),
           h('h1',{className:'page-title'},'Nainital, Corbett, Mussoorie & Haridwar'),
