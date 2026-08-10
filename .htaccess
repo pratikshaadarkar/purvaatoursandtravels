@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /purvaatoursandtravels/
+  RewriteBase /
   
   # Remove .html from URLs
   RewriteCond %{REQUEST_FILENAME} !-f
