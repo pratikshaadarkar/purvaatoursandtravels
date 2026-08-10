@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Educational Tours & Outdoor Camping - Purvaa Tours & Travels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { pp:'#432267', py:'#FEED01', pc:'#FFF8DC', pn:'#0D1B2A', pb:'#1A3A6B' } } }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #fff; color: #1A1A1A; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+
+    .nav-bar { background: #432267; position: sticky; top: 0; z-index: 999; transition: box-shadow 0.3s; }
+    .nav-bar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+
+    /* ── HERO ── */
+    .iv-hero {
+      position: relative; height: 420px; overflow: hidden;
+      background: #1a0d26;
+    }
+    .iv-hero-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center center; display: block;
+    }
+    .iv-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.70) 100%);
+    }
+    .iv-hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; gap: 16px;
+    }
+    .iv-hero h1 {
+      font-size: 50px; font-weight: 800; color: #fff;
+      font-family: 'Playfair Display', serif; line-height: 1.12; max-width: 820px; padding: 0 24px;
+    }
+    .hero-rule { width: 52px; height: 3px; background: #FEED01; border-radius: 2px; margin: 0 auto; }
+
+    /* ── SHARED SECTION LABELS ── */
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: #432267;
+      font-family: 'DM Sans', sans-serif; display: block; margin-bottom: 10px;
+    }
+    .section-heading {
+      font-size: 38px; font-weight: 800; color: #1A1A1A;
+      font-family: 'Playfair Display', serif; line-height: 1.15;
+      margin-bottom: 48px; text-align: center;
+    }
+
+    /* ── PROGRAMS ── */
+    .dept-section { padding: 80px 80px; background: #fff; }
+    .dept-list { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 30px; }
+    .dept-item { }
+    .dept-num {
+      font-size: 13px; font-weight: 800; color: #FEED01; background: #432267;
+      border-radius: 6px; padding: 4px 10px; flex-shrink: 0; font-family: 'DM Sans', sans-serif;
+      letter-spacing: .04em; margin-top: 2px;
+    }
+    .dept-body { }
+    .dept-title {
+      font-size: 20px; font-weight: 700; color: #432267;
+      font-family: 'DM Sans', sans-serif; line-height: 1.4;
+      margin-bottom: 6px; letter-spacing: .01em;
+    }
+    .dept-desc { font-size: 16px; color: #3A3A3A; line-height: 1.78; font-family: 'DM Sans', sans-serif; }
+
+    /* ── DESTINATION GRIDS ── */
+    .popular-section { padding: 80px 80px; background: #fff; }
+    .popular-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px;
+    }
+    .dest-card {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(67,34,103,0.08);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .dest-card:hover { box-shadow: 0 10px 36px rgba(67,34,103,0.14); transform: translateY(-4px); }
+    .dest-img { width: 100%; height: 210px; object-fit: cover; display: block; background: linear-gradient(135deg,#2d1845,#432267); }
+    .dest-body { padding: 22px 24px 26px; }
+    .dest-title { font-size: 19px; font-weight: 700; color: #1A1A1A; font-family: 'Playfair Display', serif; margin-bottom: 20px; line-height: 1.3; }
+    .enquire-btn {
+      display: inline-block; background: #432267; color: #fff;
+      padding: 11px 24px; border-radius: 6px;
+      font-size: 14px; font-weight: 700; font-family: 'DM Sans', sans-serif;
+      text-decoration: none; letter-spacing: .02em; border: none; cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .enquire-btn:hover { background: #2d1650; transform: translateY(-1px); }
+
+    /* ── DESTINATION TABLE ── */
+    .edu-table-wrap {
+      max-width: 860px; margin: 0 auto;
+      border: 1px solid rgba(67,34,103,0.12); overflow: hidden;
+    }
+    .edu-table { width: 100%; border-collapse: collapse; }
+    .edu-table thead tr { background: #432267; }
+    .edu-table thead th {
+      padding: 18px 24px; text-align: left;
+      font-size: 14px; font-weight: 600; color: #fff;
+      font-family: 'DM Sans', sans-serif; letter-spacing: .01em;
+    }
+    .edu-table thead th:first-child { border-right: 1px solid rgba(255,255,255,0.2); }
+    .edu-table tbody td {
+      padding: 16px 24px;
+      font-size: 14.5px; color: #1A1A1A;
+      font-family: 'DM Sans', sans-serif; line-height: 1.6;
+      border-bottom: 1px solid rgba(67,34,103,0.07);
+      vertical-align: top;
+    }
+    .edu-table tbody tr:last-child td { border-bottom: none; }
+    .edu-td-place { width: 220px; font-weight: 700; border-right: 1px solid rgba(67,34,103,0.12); }
+
+    /* ── ATTACHED / NEARBY LIST ── */
+    .dayvisit-section { padding: 80px 80px; background: #f9f7fc; }
+    .dayvisit-list { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .dayvisit-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: 18px 28px; border: 1px solid rgba(67,34,103,0.1); border-radius: 10px;
+      background: #fff; transition: box-shadow .2s, border-color .2s;
+    }
+    .dayvisit-item:hover { box-shadow: 0 4px 18px rgba(67,34,103,0.1); border-color: rgba(67,34,103,0.28); }
+    .dayvisit-left { display: flex; align-items: center; gap: 14px; }
+    .dayvisit-dot { width: 8px; height: 8px; background: #FEED01; border-radius: 50%; flex-shrink: 0; }
+    .dayvisit-name { font-size: 16px; font-weight: 600; color: #1A1A1A; font-family: 'DM Sans', sans-serif; }
+
+    /* ── RULES ── */
+    .rules-section { padding: 80px 80px; background: #fff; }
+    .rules-inner { max-width: 1100px; margin: 0 auto; }
+    .rules-grid { display: flex; flex-direction: column; gap: 0; max-width: 860px; margin: 0 auto; }
+    .rules-block-title {
+      font-size: 21px; font-weight: 800; color: #432267;
+      font-family: 'Playfair Display', serif; margin-bottom: 26px;
+      padding-bottom: 14px; border-bottom: 2px solid #FEED01;
+    }
+    .rules-list { list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .rules-list li {
+      font-size: 14.5px; color: #3A3A3A; line-height: 1.68; font-family: 'DM Sans', sans-serif;
+    }
+    .rules-list li::marker { color: #432267; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    @keyframes heroIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-anim   { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.1s both; }
+    .hero-anim-2 { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.3s both; }
+    .hero-anim-3 { animation: heroIn 0.85s cubic-bezier(0.22,1,0.36,1) 0.5s both; }
+
+    @media (max-width: 900px) {
+      .dept-section, .popular-section, .dayvisit-section, .rules-section { padding: 56px 24px; }
+      .popular-grid { grid-template-columns: 1fr 1fr; }
+      .rules-grid { grid-template-columns: 1fr; gap: 48px; }
+      .iv-hero h1 { font-size: 36px; }
+    }
+    @media (max-width: 600px) {
+      .popular-grid { grid-template-columns: 1fr; }
+      .iv-hero h1 { font-size: 28px; }
+      .dayvisit-item { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+    /* ── MOBILE NAV ── */
+    .ham-btn{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;padding:4px 6px;line-height:1}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .nav-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+    .nav-menu{display:flex;align-items:center;flex:1;padding:14px 0}
+    .nav-links-wrap{display:flex;align-items:center;gap:32px;flex:1;justify-content:center}
+    .nav-actions{display:flex;align-items:center;gap:22px;flex-shrink:0}
+    .footer-grid{display:grid;grid-template-columns:38% 22% 40%;gap:72px;max-width:1200px;margin:0 auto;padding:60px 80px 48px}
+    @media(max-width:900px){
+      .ham-btn{display:flex;align-items:center;justify-content:center}
+      .nav-inner{padding:0 16px}
+      .nav-logo img{height:60px!important}
+      .nav-menu{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:0;border-top:1px solid rgba(255,255,255,0.15);padding:8px 0 12px}
+      .nav-menu.open{display:flex}
+      .nav-links-wrap{flex-direction:column;align-items:flex-start;gap:0;width:100%}
+      .nav-links-wrap a{display:block!important;padding:10px 16px;width:100%;border-bottom:1px solid rgba(255,255,255,0.08);white-space:normal!important}
+      .nav-actions{padding:8px 16px;gap:12px;flex-wrap:wrap;justify-content:flex-start;width:100%}
+    }
+    @media(max-width:768px){
+      .footer-grid{grid-template-columns:1fr!important;gap:36px!important;padding:40px 20px 32px!important}
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const h = React.createElement;
+const {useState, useEffect, useRef} = React;
+let __openModal = ()=>{};
+
+function useInView(threshold=0.12){
+  const ref=useRef(null);
+  const [visible,setVisible]=useState(false);
+  useEffect(()=>{
+    const el=ref.current; if(!el) return;
+    const obs=new IntersectionObserver(([e])=>{if(e.isIntersecting){setVisible(true);obs.disconnect();}},{threshold});
+    obs.observe(el); return ()=>obs.disconnect();
+  },[]);
+  return [ref,visible];
+}
+
+function useNavShadow(){
+  useEffect(()=>{
+    const nav=document.querySelector('.nav-bar'); if(!nav) return;
+    const handler=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+    window.addEventListener('scroll',handler,{passive:true});
+    return ()=>window.removeEventListener('scroll',handler);
+  },[]);
+}
+
+/* SVG ICONS */
+const PhoneIcon=()=>h('svg',{width:'17',height:'17',viewBox:'0 0 24 24',fill:'none',stroke:'#FEED01',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'}));
+const FbIcon=()=>h('svg',{width:'18',height:'18',viewBox:'0 0 24 24',fill:'#fff'},h('path',{d:'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'}));
+const IgIcon=()=>h('svg',{width:'18',height:'18',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('rect',{x:'2',y:'2',width:'20',height:'20',rx:'5',fill:'none'}),h('path',{d:'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z',fill:'none'}),h('line',{x1:'17.5',y1:'6.5',x2:'17.51',y2:'6.5',stroke:'#fff'}));
+const CheckIcon=()=>h('svg',{width:12,height:12,viewBox:'0 0 12 12',fill:'none'},h('path',{d:'M2 6l3 3 5-5',stroke:'#fff',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'}));
+
+/* Reveal */
+const Reveal=({children,delay=0,className=''})=>{
+  const [ref,visible]=useInView();
+  return h('div',{ref,className:`reveal${visible?' in':''} ${className}`,style:{transitionDelay:`${delay}s`}},children);
+};
+
+/* NAVBAR */
+const NAV_LINKS = ['About Us','Our Tours','Gallery','Contact Us'];
+const NAV_HREFS = {'Contact Us':'./contact.html','Our Tours':'./our-tours.html','Gallery':'./gallery.html','About Us':'./about.html'};
+
+const Navbar=()=>{
+  useNavShadow();
+  const [active,setActive]=useState('');
+  const [menuOpen,setMenuOpen]=useState(false);
+  return h('nav',{className:'nav-bar'},
+    h('div',{className:'nav-inner'},
+      h('a',{href:'./purvaa-homepage-v3-fixed.html',className:'nav-logo'},
+        h('img',{src:'./logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
+      ),
+      h('button',{className:'ham-btn',onClick:()=>setMenuOpen(m=>!m),'aria-label':'Menu'},menuOpen?'✕':'☰'),
+      h('div',{className:`nav-menu${menuOpen?' open':''}`},
+        h('div',{className:'nav-links-wrap'},
+          NAV_LINKS.map(l=>
+            h('a',{key:l,href:NAV_HREFS[l]||'#',style:{color:active===l?'#FEED01':'rgba(255,255,255,0.88)',textDecoration:'none',transition:'color .2s',fontFamily:"'DM Sans',sans-serif",fontSize:18,fontWeight:500},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color=active===l?'#FEED01':'rgba(255,255,255,0.88)',onClick:()=>setActive(l)},l)
+          )
+        ),
+        h('div',{className:'nav-actions'},
+          h('a',{href:'tel:+919869272960',style:{color:'#FEED01',fontSize:16,fontWeight:600,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',display:'flex',alignItems:'center',gap:7}},h(PhoneIcon),'+91 98692 72960'),
+          h('button',{onClick:()=>__openModal('Plan My Trip'),style:{background:'#fff',color:'#432267',border:'none',padding:'11px 26px',borderRadius:5,fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',transition:'background .2s'},onMouseOver:e=>e.currentTarget.style.background='#FEED01',onMouseOut:e=>e.currentTarget.style.background='#fff'},'Plan My Trip')
+        )
+      )
+    )
+  );
+};
+
+/* HERO */
+const Hero=()=>
+  h('section',{className:'iv-hero'},
+    h('img',{src:'./tour-images/educational-tours.jpeg',alt:'',className:'iv-hero-img'}),
+    h('div',{className:'iv-hero-overlay'}),
+    h('div',{className:'iv-hero-content'},
+      h('h1',{className:'hero-anim-2'},'Educational Tours & Outdoor Camping'),
+      h('div',{className:'hero-rule hero-anim-3'})
+    )
+  );
+
+/* ── PROGRAMS ── */
+const PROGRAMS = [
+  {num:'01', title:'Field Visit',                           desc:'Educational visits to farms, factories, museums, science centres, heritage sites and natural habitats,  giving students direct exposure that the classroom cannot replicate.'},
+  {num:'02', title:'Adventure Camp',                        desc:'Outdoor activities including trekking, rock climbing, rappelling, rope courses and water-based sports,  designed to build confidence, resilience and teamwork.'},
+  {num:'03', title:'Social Service Camp',                   desc:'Community engagement programmes: village visits, cleanliness drives, plantation activities and NGO collaboration,  instilling empathy and a sense of social responsibility.'},
+  {num:'04', title:'Historical Camp',                       desc:'Guided tours to forts, monuments, archaeological sites and cultural heritage locations,  bringing history alive through immersive, first-hand experience.'},
+  {num:'05', title:'Leadership Camp',                       desc:'Group challenges, problem-solving tasks and responsibility exercises that develop communication, decision-making and leadership skills in students.'},
+  {num:'06', title:'Cubs and Bulbuls',                      desc:'Dedicated scouting programmes for younger students,  nature trails, camping basics, flag ceremony, group games and community pledge activities.'},
+  {num:'07', title:'Nature Club Camp',                      desc:'Bird watching, botanical studies, eco-trails and wildlife conservation awareness,  conducted in forests, sanctuaries and natural reserves around Mumbai.'},
+  {num:'08', title:'Winter Camp',                           desc:'Special programmes during winter vacation,  overnight camping, bonfire evenings, stargazing sessions, nature hikes and seasonal outdoor activities.'},
+  {num:'09', title:'Summer Camp',                           desc:'Comprehensive vacation camps blending adventure, creativity, science experiments, art, sports and social service,  productive and enriching for every student.'},
+  {num:'10', title:'School Events',                         desc:'Annual day support, picnic planning, sports meet logistics, farewell trips and custom event-day travel management,  handled end to end by Purvaa.'},
+  {num:'11', title:'Industrial Visit for College Students', desc:'Department-specific visits to corporate offices, manufacturing plants, laboratories, media houses and industry facilities for professional exposure and career awareness.'},
+  {num:'12', title:'Team Building Program for Students',    desc:'Trust exercises, group challenges, communication games and leadership tasks designed specifically for student groups,  building cohesion and mutual respect.'},
+];
+
+const ProgramsSection=()=>
+  h('section',{className:'dept-section'},
+    h(Reveal,null,
+      h('div',{style:{textAlign:'center',marginBottom:48}},
+        h('h2',{className:'section-heading',style:{marginBottom:0}},'Educational Programmes')
+      )
+    ),
+    h('div',{className:'dept-list'},
+      PROGRAMS.map((p,i)=>
+        h(Reveal,{key:p.num,delay:i*0.06},
+          h('div',{className:'dept-item'},
+            h('div',{className:'dept-title'},(i+1)+'. '+p.title),
+            h('p',{className:'dept-desc'},p.desc)
+          )
+        )
+      )
+    )
+  );
+
+/* ── OUTDOOR CAMP DESTINATIONS ── */
+const waLink = name => `https://wa.me/919869272960?text=${encodeURIComponent('Hello Purvaa Tours, I would like to enquire about '+name+' for Educational / Outdoor Camp. Please share details.')}`;
+
+const CAMP_DEST = [
+  {city:'Silvassa',                   exp:'River camping, tribal culture, nature walks, dam visits'},
+  {city:'Alibaug',                    exp:'Beach camps, fort visits, boat rides, mangrove walks'},
+  {city:'Mahabaleshwar',              exp:'Hill station camps, strawberry farms, nature trails, boating'},
+  {city:'Vajreshwari',                exp:'Hot spring retreat, nature exploration, temple visits'},
+  {city:'Khopoli (Monteria Resort)',  exp:'Resort activities, zip-lining, water play, outdoor games'},
+  {city:'Pune (Mappal)',              exp:'Team building camp, rock climbing, rappelling, trekking'},
+  {city:'Karnala (Panoramic Resorts)',exp:'Jungle stay, bird watching, nature trails, fort trek'},
+  {city:'Bordi',                      exp:'Beach camping, fishing village, chikoo orchards, bonfires'},
+  {city:'Igatpuri',                   exp:'Lake, hill trekking, nature retreat, outdoor activities'},
+  {city:'Saputara',                   exp:'Gujarat hill station, lake, botanical garden, tribal culture'},
+];
+
+/* ── EDUCATIONAL DAY VISIT DESTINATIONS ── */
+const EDU_DEST = [
+  {city:'Keshav Shrushti',                        exp:'Organic farming, animal sanctuary, nature activities'},
+  {city:'Bombay Natural History Society (BNHS)',  exp:'Museum, wildlife exhibits, nature education'},
+  {city:'Saguna Baug',                            exp:'Organic farm stay, rural activities, animal care'},
+  {city:'Adarsh Village + Water Filtrations Plant',exp:'Rural life, water treatment process, civic education'},
+  {city:'Rural Development Center',               exp:'Village life, sustainable practices, community learning'},
+  {city:'Go Green Nursery',                       exp:'Plant science, gardening, ecology, environmental education'},
+  {city:'Sanjay Gandhi National Park',            exp:'Wildlife safari, forest trek, nature education'},
+  {city:'Karnala Bird Sanctuary',                 exp:'Bird watching, jungle trail, nature photography'},
+  {city:'Yusuf Mehar Ali Center',                 exp:'Rural technology, social entrepreneurship, craft activities'},
+];
+
+const EduTable=({data})=>
+  h('div',{className:'edu-table-wrap'},
+    h('table',{className:'edu-table'},
+      h('thead',null,
+        h('tr',null,
+          h('th',null,'Destination'),
+          h('th',null,'Experience')
+        )
+      ),
+      h('tbody',null,
+        data.map(row=>
+          h('tr',{key:row.city},
+            h('td',{className:'edu-td-place'},row.city),
+            h('td',null,row.exp)
+          )
+        )
+      )
+    )
+  );
+
+const CampSection=()=>
+  h('section',{className:'popular-section'},
+    h(Reveal,null,
+      h('div',{style:{textAlign:'center',marginBottom:48}},
+        h('h2',{className:'section-heading',style:{marginBottom:0}},'Outdoor Camp Destinations')
+      )
+    ),
+    h(Reveal,{delay:0.1},h(EduTable,{data:CAMP_DEST})),
+    h('div',{style:{textAlign:'center',marginTop:36}},
+      h('button',{className:'enquire-btn',onClick:()=>__openModal('Outdoor Camp')},'Enquire Now')
+    )
+  );
+
+const EduSection=()=>
+  h('section',{className:'popular-section white'},
+    h(Reveal,null,
+      h('div',{style:{textAlign:'center',marginBottom:48}},
+        h('h2',{className:'section-heading',style:{marginBottom:0}},'Educational Day Visit Destinations')
+      )
+    ),
+    h(Reveal,{delay:0.1},h(EduTable,{data:EDU_DEST})),
+    h('div',{style:{textAlign:'center',marginTop:36}},
+      h('button',{className:'enquire-btn',onClick:()=>__openModal('Educational Day Visit')},'Enquire Now')
+    )
+  );
+
+/* ── ATTACHED / NEARBY DAY VISITS ── */
+const DAY_VISITS = [
+  {city:'Sanjay Gandhi National Park',                             exp:'Wildlife safari, forest trek, lion & tiger safari, nature education'},
+  {city:'Veer Savarkar Udyan',                                    exp:'Heritage garden, cultural walk, outdoor recreational activities'},
+  {city:'Mumbai Heritage Tour',                                   exp:'Colonial architecture, CSMT, Gateway of India, Dhobi Ghat, history tour'},
+  {city:'Micro Factory Visits (Ice Cream, Bakery, Mineral Water, Stationary)',exp:'Live production process, industrial awareness, hands-on learning'},
+  {city:'Nehru Science Center + 3D Shows',                        exp:'Interactive science exhibits, 3D science shows, technology labs'},
+  {city:'Homi Bhabha Science Center',                             exp:'Physics & chemistry labs, interactive science experiments'},
+  {city:'Bhau Daji Laad Museum + Zoo',                            exp:'Art & cultural museum, Byculla zoo, colonial heritage walk'},
+  {city:'Nehru Planetarium + DIB',                                exp:'Astronomy shows, space science, sky observation, interactive exhibits'},
+];
+
+const NearbySection=()=>
+  h('section',{className:'popular-section'},
+    h(Reveal,null,
+      h('div',{style:{textAlign:'center',marginBottom:48}},
+        h('h2',{className:'section-heading',style:{marginBottom:0}},'Half-Day & Nearby Destinations')
+      )
+    ),
+    h(Reveal,{delay:0.1},h(EduTable,{data:DAY_VISITS})),
+    h('div',{style:{textAlign:'center',marginTop:36}},
+      h('button',{className:'enquire-btn',onClick:()=>__openModal('Same-Day Visit')},'Enquire Now')
+    )
+  );
+
+/* ── RULES & REGULATIONS ── */
+const RULES_DAY = [
+  'Transportation by 3×2 Semi Luxury Coach',
+  '55 Students in each bus',
+  'One Teacher will be allowed free on every 20 Students',
+  'Students must be in proper school uniform',
+  'Principal\'s well stamped letter on school letterhead is required (minimum 15 days in advance)',
+  'Any suggestions from your side regarding the places are always welcome',
+  'All above rates, rules and regulations are subject to change without prior notice',
+  'Food is not included in the above package',
+  'Packed Breakfast / Lunch / Snacks packets can be provided at extra cost',
+];
+
+const RULES_CAMP = [
+  'The above rates are inclusive of transportation, accommodation, vegetarian meals and sight seeing',
+  'Minimum 49 Students are required for the camp to be conducted',
+  'One Teacher will be allowed free on every 20 Students',
+  'To & Fro Transportation by 3×2 Semi Luxury bus',
+  'Meals for overnight camps (Breakfast + Lunch + Dinner)',
+  'Accommodation for overnight stay on sharing of 5 to 6 and 6 to 8 students in a room',
+];
+
+const RulesList=({rules})=>
+  h('ul',{className:'rules-list'},
+    rules.map((r,i)=>h('li',{key:i},r))
+  );
+
+const RulesSection=()=>
+  h('section',{className:'rules-section'},
+    h('div',{className:'rules-inner'},
+      h(Reveal,null,
+        h('div',{style:{textAlign:'center',marginBottom:48}},
+          h('h2',{className:'section-heading',style:{marginBottom:0}},'Rules & Regulations')
+        )
+      ),
+      h(Reveal,{delay:0.1},
+        h('div',{className:'rules-grid'},
+          h('div',null, h(RulesList,{rules:RULES_DAY})),
+          h('div',null, h(RulesList,{rules:RULES_CAMP}))
+        )
+      )
+    )
+  );
+
+/* ── FOOTER ── */
+const Footer=()=>h('footer',{style:{background:'#2d1845'}},
+  h('div',{className:'footer-grid'},
+    h('div',{style:{marginTop:'-20px'}},
+      h('img',{src:'./logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
+      h('p',{style:{fontSize:15,color:'rgba(255,255,255,0.68)',lineHeight:1.85,marginBottom:28,fontFamily:"'DM Sans',sans-serif",maxWidth:340}},'Purvaa is the travel management company Mumbai families have trusted since 1996 because we handle everything personally and have maintained our quality standards across 30 years.'),
+      h('button',{onClick:()=>__openModal('Quick Enquiry'),style:{background:'#FEED01',color:'#1A1A1A',border:'none',padding:'14px 30px',borderRadius:6,fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em'},onMouseOver:e=>e.currentTarget.style.background='#fff',onMouseOut:e=>e.currentTarget.style.background='#FEED01'},'Quick Enquiry')
+    ),
+    h('div',null,
+      h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:22,fontFamily:"'DM Sans',sans-serif"}},'Quick Links'),
+      ['About Us','Our Tours','Gallery','Contact Us','Privacy Policy','Terms & Conditions'].map(l=>
+        h('a',{key:l,href:l==='Contact Us'?'./contact.html':l==='Our Tours'?'./our-tours.html':l==='Gallery'?'./gallery.html':l==='About Us'?'./about.html':l==='Privacy Policy'?'./privacy-policy.html':l==='Terms & Conditions'?'./terms-conditions.html':'#',style:{display:'block',color:'rgba(255,255,255,0.75)',fontSize:14,textDecoration:'none',marginBottom:14,fontFamily:"'DM Sans',sans-serif",transition:'color .2s'},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.75)'},l)
+      )
+    ),
+    h('div',{style:{display:'flex',flexDirection:'column',gap:24}},
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:10,fontFamily:"'DM Sans',sans-serif"}},'For Enquiries'),
+        h('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:10}},
+          h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'})),
+          h('a',{href:'tel:+919869272960',style:{color:'rgba(255,255,255,0.82)',fontSize:14,textDecoration:'none',fontFamily:"'DM Sans',sans-serif"},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.82)'},'+91 98692 72960')
+        ),
+        h('div',{style:{display:'flex',alignItems:'center',gap:10}},
+          h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'}),h('polyline',{points:'22,6 12,13 2,6'})),
+          h('a',{href:'mailto:info.purvaatravels@gmail.com',style:{color:'rgba(255,255,255,0.82)',fontSize:14,textDecoration:'none',fontFamily:"'DM Sans',sans-serif"},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.82)'},'info.purvaatravels@gmail.com')
+        )
+      ),
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:10,fontFamily:"'DM Sans',sans-serif"}},'Address'),
+        h('p',{style:{fontSize:14,color:'rgba(255,255,255,0.72)',lineHeight:1.75,fontFamily:"'DM Sans',sans-serif",margin:0}},'Sitaram Niwas, 4, Shivadarshan Path,',h('br'),'Nardas Nagar, W, Bhandup West,',h('br'),'Mumbai, Maharashtra 400078')
+      ),
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:12,fontFamily:"'DM Sans',sans-serif"}},'Connect With Us'),
+        h('div',{style:{display:'flex',gap:10}},
+          [{icon:h(FbIcon),label:'Facebook',href:'https://www.facebook.com/purvaatravelsofficiall/'},{icon:h(IgIcon),label:'Instagram',href:'https://www.instagram.com/purvaatoursandtravels/'}].map(s=>
+            h('a',{key:s.label,href:s.href,target:'_blank',rel:'noopener noreferrer','aria-label':s.label,style:{width:40,height:40,borderRadius:8,background:'rgba(255,255,255,0.1)',display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',transition:'background .2s'},onMouseOver:e=>e.currentTarget.style.background='#FCE205',onMouseOut:e=>e.currentTarget.style.background='rgba(255,255,255,0.1)'},s.icon)
+          )
+        )
+      )
+    )
+  ),
+  h('div',{style:{borderTop:'1px solid rgba(255,255,255,0.08)',padding:'18px 80px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:10}},
+    h('p',{style:{fontSize:12,color:'rgba(255,255,255,0.38)',fontFamily:"'DM Sans',sans-serif",margin:0}},'All Rights Reserved © 2026 ',h('a',{href:'https://purvaatravels.com/',target:'_blank',style:{color:'rgba(255,255,255,0.38)',textDecoration:'none'}},'purvaatravels.com'))
+  )
+);
+
+/* ── ENQUIRY MODAL ── */
+const EnquiryModal=({tourTitle,onClose})=>{
+  const [form,setForm]=useState({name:'',phone:'',email:'',date:'',message:''});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const inp={width:'100%',border:'1.5px solid #e0d8f0',borderRadius:6,padding:'10px 12px',fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:'none',boxSizing:'border-box',color:'#1A1A1A'};
+  const lbl={display:'block',fontSize:13,fontWeight:600,color:'#444',marginBottom:5,fontFamily:"'DM Sans',sans-serif"};
+  const submit=e=>{
+    e.preventDefault();
+    const msg=`Hello Purvaa Tours & Travels,\n\nI would like to enquire about: ${tourTitle}\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nPreferred Travel Date: ${form.date||'Not specified'}\nMessage: ${form.message||'No message'}`;
+    window.open(`https://wa.me/919869272960?text=${encodeURIComponent(msg)}`,'_blank');
+    onClose();
+  };
+  useEffect(()=>{
+    const prev=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    return ()=>{document.body.style.overflow=prev;};
+  },[]);
+  return h('div',{style:{position:'fixed',inset:0,background:'rgba(0,0,0,0.58)',zIndex:9999,display:'flex',alignItems:'center',justifyContent:'center',padding:'16px'},onClick:onClose},
+    h('div',{style:{background:'#fff',borderRadius:14,padding:'36px 32px 30px',maxWidth:460,width:'100%',position:'relative',boxShadow:'0 24px 64px rgba(0,0,0,0.22)'},onClick:e=>e.stopPropagation()},
+      h('button',{onClick:onClose,style:{position:'absolute',top:14,right:18,background:'none',border:'none',fontSize:24,cursor:'pointer',color:'#999',lineHeight:1}},'×'),
+      h('h3',{style:{margin:'0 0 20px',fontFamily:"'Playfair Display',serif",fontSize:22,color:'#432267'}},'Plan My Trip'),
+      h('form',{onSubmit:submit},
+        h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}},
+          h('div',null,h('label',{style:lbl},'Name *'),h('input',{required:true,value:form.name,onChange:set('name'),placeholder:'Your name',style:inp})),
+          h('div',null,h('label',{style:lbl},'Phone *'),h('input',{required:true,type:'tel',value:form.phone,onChange:set('phone'),placeholder:'Your number',style:inp}))
+        ),
+        h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}},
+          h('div',null,h('label',{style:lbl},'Email'),h('input',{type:'email',value:form.email,onChange:set('email'),placeholder:'your@email.com',style:inp})),
+          h('div',null,h('label',{style:lbl},'Preferred Travel Date'),h('input',{type:'date',value:form.date,onChange:set('date'),style:inp}))
+        ),
+        h('div',{style:{marginBottom:22}},
+          h('label',{style:lbl},'Message'),
+          h('textarea',{value:form.message,onChange:set('message'),placeholder:'Any specific requirements or questions?',rows:3,style:{...inp,resize:'vertical'}})
+        ),
+        h('button',{type:'submit',style:{width:'100%',background:'#FEED01',color:'#432267',border:'none',padding:'13px',borderRadius:6,fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em'}},'Send Enquiry via WhatsApp')
+      )
+    )
+  );
+};
+
+/* ── APP ── */
+const App=()=>{
+  const [modal,setModal]=useState(null);
+  __openModal=setModal;
+  return h('div',null,
+    modal&&h(EnquiryModal,{tourTitle:modal,onClose:()=>setModal(null)}),
+    h(Navbar),
+    h(Hero),
+    h(ProgramsSection),
+    h(CampSection),
+    h(EduSection),
+    h(NearbySection),
+    h(RulesSection),
+    h(Footer)
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>
