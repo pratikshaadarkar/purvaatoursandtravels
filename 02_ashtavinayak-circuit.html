@@ -179,7 +179,7 @@ const Navbar = () => {
   const [activeLink,setActiveLink] = useState('Our Tours');
   return h('nav',{className:'nav-bar'},
     h('div',{style:{maxWidth:1280,margin:'0 auto',padding:'14px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:24}},
-      h('a',{href:'./index.html',style:{display:'flex',alignItems:'center',flexShrink:0,textDecoration:'none'}},
+      h('a',{href:'./',style:{display:'flex',alignItems:'center',flexShrink:0,textDecoration:'none'}},
         h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
       ),
       h('div',{style:{display:'flex',alignItems:'center',gap:32,fontSize:18,fontWeight:500}},
@@ -358,7 +358,7 @@ const App = () => {
     h('div',{className:'tp-wrap'},
       h('div',{className:'tp-layout'},
         h('div',{className:'tp-content'},
-          h('div',{className:'breadcrumb'},h('a',{href:'#'},'Home'),h('span',null,'>'),h('a',{href:'./our-tours.html'},'Our Tours'),h('span',null,'>'),h('span',{style:{color:'#666'}},'Ashtavinayak')),
+          h('div',{className:'breadcrumb'},h('a',{href:'#'},'Home'),h('span',null,'>'),h('a',{href:'./our-tours'},'Our Tours'),h('span',null,'>'),h('span',{style:{color:'#666'}},'Ashtavinayak')),
           h('h1',{className:'page-title'},'Ashtavinayak'),
           h(TabNav,{active:activeTab,onTabClick:setActiveTab}),
           activeTab === 'overview'     ? h(OverviewTab)    : null,

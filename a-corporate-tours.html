@@ -234,7 +234,7 @@ const Navbar=()=>{
   const [menuOpen,setMenuOpen]=useState(false);
   return h('nav',{className:'nav-bar'},
     h('div',{className:'nav-inner'},
-      h('a',{href:'./index.html',className:'nav-logo'},
+      h('a',{href:'./',className:'nav-logo'},
         h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
       ),
       h('button',{className:'ham-btn',onClick:()=>setMenuOpen(m=>!m),'aria-label':'Menu'},menuOpen?'✕':'☰'),

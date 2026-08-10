@@ -1,0 +1,31 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /purvaatoursandtravels/
+  
+  # Remove .html from URLs
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([^\.]+)$ $1.html [NC,L]
+  
+  # Handle direct .html requests by rewriting to clean URL
+  RewriteCond %{REQUEST_URI} ^(.*?)\.html$ [NC]
+  RewriteRule ^(.+?)\.html$ /$1 [L,R=301,NE]
+</IfModule>
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>
+
+# Set proper cache headers
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 2 days"
+  ExpiresByType text/html "access plus 2 hours"
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 60 days"
+  ExpiresByType image/png "access plus 60 days"
+  ExpiresByType image/gif "access plus 60 days"
+  ExpiresByType image/webp "access plus 60 days"
+</IfModule>
