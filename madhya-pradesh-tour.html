@@ -437,7 +437,7 @@ const Footer = () => h('footer',{style:{background:'#2d1845'}},
       ['About Us','Our Tours','Gallery','Contact Us','Privacy Policy','Terms & Conditions'].map(l=>
         h('a',{
           key:l,
-          href:l==='Gallery'?'../gallery.html':l==='Contact Us'?'../contact.html':l==='About Us'?'../about.html':l==='Our Tours'?'../our-tours.html':l==='Privacy Policy'?'../privacy-policy.html':l==='Terms & Conditions'?'../terms-conditions.html':'#',
+          href:l==='Gallery'?'../gallery.html':l==='Contact Us'?'../contact.html':l==='About Us'?'../about.html':l==='Our Tours'?'../our-tours.html':l==='Privacy Policy'?'./privacy-policy.html':l==='Terms & Conditions'?'./terms-conditions.html':'#',
           style:{display:'block',color:'rgba(255,255,255,0.75)',fontSize:14,textDecoration:'none',marginBottom:14,fontFamily:"'DM Sans',sans-serif",transition:'color .2s'},
           onMouseOver:e=>e.target.style.color='#FEED01',
           onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.75)'
