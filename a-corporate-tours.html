@@ -235,7 +235,7 @@ const Navbar=()=>{
   return h('nav',{className:'nav-bar'},
     h('div',{className:'nav-inner'},
       h('a',{href:'./purvaa-homepage-v3-fixed.html',className:'nav-logo'},
-        h('img',{src:'./logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
+        h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
       ),
       h('button',{className:'ham-btn',onClick:()=>setMenuOpen(m=>!m),'aria-label':'Menu'},menuOpen?'✕':'☰'),
       h('div',{className:`nav-menu${menuOpen?' open':''}`},
@@ -391,7 +391,7 @@ const IncludesSection=()=>
 const Footer=()=>h('footer',{style:{background:'#2d1845'}},
   h('div',{className:'footer-grid'},
     h('div',{style:{marginTop:'-20px'}},
-      h('img',{src:'./logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
+      h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
       h('p',{style:{fontSize:15,color:'rgba(255,255,255,0.68)',lineHeight:1.85,marginBottom:28,fontFamily:"'DM Sans',sans-serif",maxWidth:340}},'Purvaa is the travel management company Mumbai families and corporates have trusted since 1996, because we handle everything personally and never compromise on quality.'),
       h('button',{onClick:()=>__openModal('Quick Enquiry'),style:{background:'#FEED01',color:'#1A1A1A',border:'none',padding:'14px 30px',borderRadius:6,fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"},onMouseOver:e=>e.currentTarget.style.background='#fff',onMouseOut:e=>e.currentTarget.style.background='#FEED01'},'Quick Enquiry')
     ),
