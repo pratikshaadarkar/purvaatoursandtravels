@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leh & Ladakh Tour | Purvaa Tours & Travels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{pp:'#432267',py:'#FEED01'}}}}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',system-ui,sans-serif;background:#fff;color:#1A1A1A}
+    h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif}
+
+    /* ── NAV ── */
+    .nav-bar{background:#432267;position:sticky;top:0;z-index:999;transition:box-shadow .3s}
+    .nav-bar.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.25)}
+
+    /* ── PHOTO MOSAIC ── */
+    .mosaic{height:500px;overflow:hidden}
+    .mosaic img{width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block;transition:transform .5s}
+    .mosaic:hover img{transform:scale(1.03)}
+
+    /* ── MAIN LAYOUT ── */
+    .tp-wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+    .tp-layout{display:grid;grid-template-columns:1fr 320px;gap:52px;padding:0 0 72px;align-items:start}
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb{font-size:14px;color:#999;margin-bottom:10px;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:5px;padding-top:32px}
+    .breadcrumb a{color:#999;text-decoration:none;transition:color .2s}
+    .breadcrumb a:hover{color:#432267}
+    .breadcrumb span{color:#bbb}
+
+    /* ── TITLE ── */
+    .page-title{font-size:42px;font-weight:800;color:#1A1A1A;line-height:1.2;margin-bottom:20px}
+
+    /* ── TAB NAV ── */
+    .tab-nav{position:sticky;top:114px;z-index:900;background:#432267;border-bottom:2px solid #432267;box-shadow:0 2px 8px rgba(67,34,103,0.07);margin:0 -40px;padding:0 40px}
+    .tab-nav-inner{display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
+    .tab-nav-inner::-webkit-scrollbar{display:none}
+    .tab-btn{display:inline-flex;align-items:center;padding:16px 22px;font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);cursor:pointer;border:none;background:none;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s;font-family:'DM Sans',sans-serif;letter-spacing:.01em}
+    .tab-btn:hover{color:#fff}
+    .tab-btn.active{color:#FEED01;border-bottom-color:#FEED01}
+
+    /* ── SECTION HEADINGS ── */
+    .tp-h2{font-size:29px;font-weight:800;color:#1A1A1A;margin-bottom:18px}
+    .tp-section{margin-bottom:44px;padding-top:36px}
+    .body-p{font-size:15px;color:#444;line-height:1.8;font-family:'DM Sans',sans-serif;margin-bottom:14px}
+
+    /* ── WHAT'S INCLUDED ── */
+    .inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #e8e0f5;border-radius:8px;overflow:hidden}
+    .inc-item{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;font-size:15px;color:#333;font-family:'DM Sans',sans-serif;border-bottom:1px solid #e8e0f5;border-right:1px solid #e8e0f5;line-height:1.45}
+    .inc-item:nth-child(even){border-right:none}
+    .inc-item:nth-last-child(-n+2){border-bottom:none}
+    .inc-sq{width:18px;height:18px;background:#432267;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+    /* ── ITINERARY TIMELINE ── */
+    .itin-item{display:flex;gap:0}
+    .itin-track{display:flex;flex-direction:column;align-items:center;width:48px;flex-shrink:0}
+    .itin-circle{width:34px;height:34px;border-radius:50%;border:2px solid #d0c5e8;background:#fff;display:flex;align-items:center;justify-content:center;z-index:1;flex-shrink:0}
+    .itin-circle.active{border-color:#432267;background:#432267}
+    .itin-circle-text{font-size:9px;font-weight:800;color:#432267;line-height:1;text-align:center;font-family:'DM Sans',sans-serif}
+    .itin-circle.active .itin-circle-text{color:#fff}
+    .itin-vline{width:2px;background:#e0d8f0;flex:1;min-height:16px}
+    .itin-body{flex:1;padding-bottom:24px}
+    .itin-row{display:flex;align-items:flex-start;justify-content:space-between;padding:8px 0 4px;cursor:pointer;gap:12px}
+    .itin-day-label{font-size:12px;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;font-family:'DM Sans',sans-serif}
+    .itin-title{font-size:18px;font-weight:700;color:#1A1A1A;font-family:'DM Sans',sans-serif;line-height:1.3}
+    .itin-chevron{color:#432267;flex-shrink:0;margin-top:6px;transition:transform .3s}
+    .itin-chevron.open{transform:rotate(180deg)}
+    .itin-expand{overflow:hidden;transition:max-height .35s ease}
+    .itin-expand.open{max-height:800px}
+    .itin-expand.closed{max-height:0}
+    .itin-desc{font-size:15px;color:#555;line-height:1.75;font-family:'DM Sans',sans-serif;margin-bottom:10px;padding-right:16px}
+
+    /* ── SIDEBAR CARD ── */
+    .sidebar-card{position:sticky;top:78px;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:visible;margin-top:36px}
+    .sidebar-card-inner{padding:22px;position:relative}
+    .sidebar-best-badge{position:absolute;top:-1px;right:18px;background:#432267;color:#FEED01;font-size:9px;font-weight:800;padding:4px 14px;border-radius:0 0 6px 6px;letter-spacing:.12em;text-transform:uppercase;font-family:'DM Sans',sans-serif;border:1px solid #5a2e84}
+    .sidebar-days{font-size:34px;font-weight:800;color:#1A1A1A;font-family:'DM Sans',sans-serif;line-height:1;margin-bottom:2px}
+    .sidebar-tour{font-size:16px;color:#777;font-family:'DM Sans',sans-serif;margin-bottom:14px}
+    .sidebar-price{font-size:36px;font-weight:800;color:#432267;font-family:'DM Sans',sans-serif;line-height:1;margin-bottom:2px}
+    .sidebar-orig{font-size:13px;color:#bbb;text-decoration:line-through;font-family:'DM Sans',sans-serif;margin-bottom:14px}
+    .sidebar-sep{border:none;border-top:1px solid #eee;margin:14px 0}
+    .sidebar-meta{font-size:15px;color:#555;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+    .sidebar-meta svg{flex-shrink:0}
+    .sidebar-note{font-size:12px;color:#e05a00;font-family:'DM Sans',sans-serif;font-weight:600;background:#fff5ee;border:1px solid #ffd4b0;border-radius:5px;padding:8px 10px;margin-bottom:7px;line-height:1.5}
+    .sidebar-icons-row{display:flex;gap:0;border:1px solid #eee;border-radius:6px;overflow:hidden;margin:4px 0}
+    .sidebar-icon-col{flex:1;padding:11px 6px;text-align:center;border-right:1px solid #eee;display:flex;flex-direction:column;align-items:center;gap:4px}
+    .sidebar-icon-col:last-child{border-right:none}
+    .sidebar-icon-lbl{font-size:13px;color:#888;font-family:'DM Sans',sans-serif;font-weight:600}
+    .sidebar-cta-main{display:block;width:100%;background:#1A1A1A;color:#fff;text-align:center;padding:14px;border-radius:6px;font-weight:800;font-size:15px;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.02em;transition:background .2s;margin-top:14px}
+    .sidebar-cta-main:hover{background:#432267}
+    .sidebar-cta-wa{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;background:#FEED01;color:#432267;text-align:center;padding:11px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;transition:opacity .2s}
+    .sidebar-cta-wa:hover{opacity:.88}
+    .sidebar-trust{text-align:center;font-size:11px;color:#aaa;font-family:'DM Sans',sans-serif;margin-top:10px}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      .tp-layout{grid-template-columns:1fr;gap:0}
+      .tp-aside{order:-1;margin-bottom:28px;padding-bottom:0}
+      .sidebar-card{position:static;margin-top:0}
+      .mosaic{height:380px}
+      .tab-nav{margin:0 -24px;padding:0 24px}
+    }
+    @media(max-width:640px){
+      .tp-wrap{padding:0 20px}
+      .mosaic{height:260px}
+      .page-title{font-size:28px}
+      .inc-grid{grid-template-columns:1fr}
+      .inc-item{border-right:none !important}
+      .tab-nav{margin:0 -20px;padding:0 20px}
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const h = React.createElement;
+const {useState, useEffect} = React;
+
+/* ── DATA ── */
+const ITINERARY = [
+  {
+    day:'Day 1', title:'Fly Mumbai to Srinagar Shikara Ride on Dal Lake',
+    desc:'Fly to Srinagar and transfer to hotel or houseboat. Shikara ride on Dal Lake. Dinner included. Overnight Srinagar.'
+  },
+  {
+    day:'Day 2', title:'Srinagar to Kargil Drass War Memorial and Tiger Hill',
+    desc:'Drive to Kargil (200 km, 5-6 hours) on the Srinagar-Leh Highway. Stop at Drass to visit Drass War Memorial, Tiger Hill, and Captain Batra Top. Lunch and dinner included. Overnight Kargil.'
+  },
+  {
+    day:'Day 3', title:'Kargil to Leh Lamayuru Moonland and River Confluence',
+    desc:'Drive via Fotu La Pass to Leh. Stop at Lamayuru Monastery and moonland landscape. Visit Indus-Zanskar Sangam confluence and Magnetic Hill. Hotel check-in. Acclimatization rest in afternoon. Dinner included. Overnight Leh.'
+  },
+  {
+    day:'Day 4', title:'Nubra Valley via Khardungla Pass Disket Monastery',
+    desc:'Drive via Khardungla Pass (18,380 feet) to Nubra Valley. Visit Disket Monastery with 32-metre Maitreya Buddha statue. Hunder sand dunes visit and optional Bactrian camel ride. Overnight Nubra Valley.'
+  },
+  {
+    day:'Day 5', title:'Turtuk Village India\'s Northernmost Accessible Village',
+    desc:'Drive to Turtuk village, India\'s northernmost accessible village near the Line of Control. Explore Central Asian architecture, Balti culture, and local orchards. Return to Nubra Valley for overnight.'
+  },
+  {
+    day:'Day 6', title:'Pangong Lake via Chang La Pass Iconic High-Altitude Lake',
+    desc:'Drive via Chang La Pass (14,270 feet) to Pangong Lake at 4,350 metres. Explore the stunning 134-km-long lake with its shifting turquoise colors and views of Changcheamo Range. Overnight Pangong Lake.'
+  },
+  {
+    day:'Day 7', title:'Leh Shey, Thiksey, Hemis Monasteries and Shanti Stupa',
+    desc:'Drive back from Pangong to Leh. Visit Shey Palace, Thiksey Monastery, and Hemis Monastery. Afternoon: Hall of Fame war museum and Shanti Stupa viewpoint. Dinner included. Overnight Leh.'
+  },
+  {
+    day:'Day 8', title:'Fly Leh to Mumbai Tour Concludes',
+    desc:'Early morning transfer to Leh Airport. Flight to Mumbai or onward destination. Tour concludes.'
+  },
+];
+
+const INCLUDES = [
+  'Non-AC Tempo Traveler for all sightseeing (Days 18 in Ladakh)',
+  '7 nights accommodation Srinagar, Kargil, Leh, Nubra, Pangong',
+  'All meals Days 1 to 7 by Purvaa catering team',
+  'Shikara ride on Dal Lake, Srinagar (Day 1)',
+  'Khardungla Pass (18,380 ft) one of the world\'s highest motorable roads',
+  'Nubra Valley and Hunder Bactrian camel dunes visit',
+  'Turtuk Village India\'s northernmost accessible village',
+  'Pangong Lake via Chang La Pass (14,270 ft)',
+  'Leh monasteries Shey, Thiksey, Hemis, Disket',
+  'Hall of Fame war museum and Shanti Stupa, Leh',
+  'Drass War Memorial Tiger Hill and Captain Batra Top',
+  'Dedicated Purvaa trip coordinator throughout',
+];
+
+/* ── ICONS ── */
+const CalIcon = () => h('svg',{width:'14',height:'14',viewBox:'0 0 24 24',fill:'none',stroke:'#432267',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('rect',{x:'3',y:'4',width:'18',height:'18',rx:'2',ry:'2'}),h('line',{x1:'16',y1:'2',x2:'16',y2:'6'}),h('line',{x1:'8',y1:'2',x2:'8',y2:'6'}),h('line',{x1:'3',y1:'10',x2:'21',y2:'10'}));
+const PhoneIcon = () => h('svg',{width:'17',height:'17',viewBox:'0 0 24 24',fill:'none',stroke:'#FEED01',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'}));
+const ChevronDown = () => h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'2.5',strokeLinecap:'round',strokeLinejoin:'round'},h('polyline',{points:'6 9 12 15 18 9'}));
+const CarIcon = () => h('svg',{width:'20',height:'20',viewBox:'0 0 24 24',fill:'none',stroke:'#432267',strokeWidth:'1.8',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-4h10l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2'}),h('circle',{cx:'7',cy:'17',r:'2'}),h('circle',{cx:'17',cy:'17',r:'2'}));
+const MealsIcon = () => h('svg',{width:'20',height:'20',viewBox:'0 0 24 24',fill:'none',stroke:'#432267',strokeWidth:'1.8',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M18 8h1a4 4 0 0 1 0 8h-1'}),h('path',{d:'M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z'}),h('line',{x1:'6',y1:'1',x2:'6',y2:'4'}),h('line',{x1:'10',y1:'1',x2:'10',y2:'4'}),h('line',{x1:'14',y1:'1',x2:'14',y2:'4'}));
+const HotelBigIcon = () => h('svg',{width:'20',height:'20',viewBox:'0 0 24 24',fill:'none',stroke:'#432267',strokeWidth:'1.8',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'}),h('polyline',{points:'9 22 9 12 15 12 15 22'}));
+const MapPinIcon = () => h('svg',{width:'13',height:'13',viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'}),h('circle',{cx:'12',cy:'10',r:'3'}));
+const WaIcon = () => h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'currentColor'},h('path',{d:'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z'}));
+const FbIcon = () => h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'#fff'},h('path',{d:'M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z'}));
+const IgIcon = () => h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('rect',{x:'2',y:'2',width:'20',height:'20',rx:'5',fill:'none'}),h('path',{d:'M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z',fill:'none'}),h('line',{x1:'17.5',y1:'6.5',x2:'17.51',y2:'6.5'}));
+
+/* ── NAVBAR ── */
+function useNavShadow(){
+  useEffect(()=>{
+    const nav=document.querySelector('.nav-bar');if(!nav)return;
+    const handler=()=>nav.classList.toggle('scrolled',window.scrollY>12);
+    window.addEventListener('scroll',handler,{passive:true});
+    return ()=>window.removeEventListener('scroll',handler);
+  },[]);
+}
+
+let __openModal = ()=>{};
+const EnquiryModal=({tourTitle,onClose})=>{
+  const [form,setForm]=useState({name:'',phone:'',email:'',date:'',message:''});
+  const set=k=>e=>setForm(f=>({...f,[k]:e.target.value}));
+  const inp={width:'100%',border:'1.5px solid #e0d8f0',borderRadius:6,padding:'10px 12px',fontSize:14,fontFamily:"'DM Sans',sans-serif",outline:'none',boxSizing:'border-box',color:'#1A1A1A'};
+  const lbl={display:'block',fontSize:13,fontWeight:600,color:'#444',marginBottom:5,fontFamily:"'DM Sans',sans-serif"};
+  const submit=e=>{
+    e.preventDefault();
+    const msg=`Hello Purvaa Tours & Travels,\n\nI would like to enquire about: ${tourTitle}\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nPreferred Travel Date: ${form.date||'Not specified'}\nMessage: ${form.message||'No message'}`;
+    window.open(`https://wa.me/919869272960?text=${encodeURIComponent(msg)}`,'_blank');
+    onClose();
+  };
+  useEffect(()=>{
+    const prev=document.body.style.overflow;
+    document.body.style.overflow='hidden';
+    return ()=>{document.body.style.overflow=prev;};
+  },[]);
+  return h('div',{style:{position:'fixed',inset:0,background:'rgba(0,0,0,0.58)',zIndex:9999,display:'flex',alignItems:'center',justifyContent:'center',padding:'16px'},onClick:onClose},
+    h('div',{style:{background:'#fff',borderRadius:14,padding:'36px 32px 30px',maxWidth:460,width:'100%',position:'relative',boxShadow:'0 24px 64px rgba(0,0,0,0.22)'},onClick:e=>e.stopPropagation()},
+      h('button',{onClick:onClose,style:{position:'absolute',top:14,right:18,background:'none',border:'none',fontSize:24,cursor:'pointer',color:'#999',lineHeight:1}},'×'),
+      h('h3',{style:{margin:'0 0 20px',fontFamily:"'Playfair Display',serif",fontSize:22,color:'#432267'}},'Plan My Trip'),
+      h('form',{onSubmit:submit},
+        h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}},
+          h('div',null,h('label',{style:lbl},'Name *'),h('input',{required:true,value:form.name,onChange:set('name'),placeholder:'Your name',style:inp})),
+          h('div',null,h('label',{style:lbl},'Phone *'),h('input',{required:true,type:'tel',value:form.phone,onChange:set('phone'),placeholder:'Your number',style:inp}))
+        ),
+        h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:14,marginBottom:14}},
+          h('div',null,h('label',{style:lbl},'Email'),h('input',{type:'email',value:form.email,onChange:set('email'),placeholder:'your@email.com',style:inp})),
+          h('div',null,h('label',{style:lbl},'Preferred Travel Date'),h('input',{type:'date',value:form.date,onChange:set('date'),style:inp}))
+        ),
+        h('div',{style:{marginBottom:22}},
+          h('label',{style:lbl},'Message'),
+          h('textarea',{value:form.message,onChange:set('message'),placeholder:'Any specific requirements or questions?',rows:3,style:{...inp,resize:'vertical'}})
+        ),
+        h('button',{type:'submit',style:{width:'100%',background:'#FEED01',color:'#432267',border:'none',padding:'13px',borderRadius:6,fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em'}},'Send Enquiry via WhatsApp')
+      )
+    )
+  );
+};
+
+const Navbar = () => {
+  useNavShadow();
+  const [activeLink,setActiveLink] = useState('Our Tours');
+  return h('nav',{className:'nav-bar'},
+    h('div',{style:{maxWidth:1280,margin:'0 auto',padding:'14px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:24}},
+      h('a',{href:'#',style:{display:'flex',alignItems:'center',flexShrink:0,textDecoration:'none'}},
+        h('img',{src:'../logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
+      ),
+      h('div',{style:{display:'flex',alignItems:'center',gap:32,fontSize:18,fontWeight:500}},
+        ['About Us','Our Tours','Gallery','Contact Us'].map(l=>
+          h('a',{
+            key:l,
+            href:l==='Contact Us'?'../contact.html':l==='Gallery'?'../gallery.html':l==='Our Tours'?'../our-tours.html':'../about.html',
+            style:{color:activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',textDecoration:'none',transition:'color .2s',fontFamily:"'DM Sans',sans-serif",whiteSpace:'nowrap'},
+            onMouseOver:e=>e.target.style.color='#FEED01',
+            onMouseOut:e=>e.target.style.color=activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',
+            onClick:()=>setActiveLink(l)
+          },l)
+        )
+      ),
+      h('div',{style:{display:'flex',alignItems:'center',gap:22,flexShrink:0}},
+        h('a',{
+          href:'tel:+919869272960',
+          style:{color:'#FEED01',fontSize:16,fontWeight:600,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',display:'flex',alignItems:'center',gap:7}
+        },h(PhoneIcon),'+91 98692 72960'),
+        h('button',{
+          onClick:()=>__openModal('Plan My Trip'),
+          style:{background:'#fff',color:'#432267',border:'none',padding:'11px 26px',borderRadius:5,fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',transition:'background .2s'},
+          onMouseOver:e=>e.currentTarget.style.background='#FEED01',
+          onMouseOut:e=>e.currentTarget.style.background='#fff'
+        },'Plan My Trip')
+      )
+    )
+  );
+};
+
+/* ── PHOTO MOSAIC ── */
+const PhotoMosaic = () =>
+  h('div',{className:'mosaic'},
+    h('img',{src:'../tour-images/lehladakh.jpeg',alt:'Leh & Ladakh Tour'})
+  );
+
+/* ── SIDEBAR CARD ── */
+const SidebarCard = () => {
+  const waMsg = encodeURIComponent('Namaste! I am interested in the Leh & Ladakh tour (8 Days). Please share details and upcoming departure dates.');
+  return h('div',{className:'sidebar-card',style:{position:'relative'}},
+    h('div',{className:'sidebar-best-badge'},'ADVENTURE TOUR'),
+    h('div',{className:'sidebar-card-inner'},
+      h('div',{className:'sidebar-days'},'8 Days'),
+      h('div',{className:'sidebar-tour'},'Leh & Ladakh'),
+      h('div',{className:'sidebar-price'},'₹39,500'),
+      h('div',{className:'sidebar-orig'},'₹43,000 per person'),
+      h('hr',{className:'sidebar-sep'}),
+      h('div',{className:'sidebar-meta'},
+        h(CalIcon),
+        h('span',null,'Duration: 8 Days / 7 Nights')
+      ),
+      h('div',{className:'sidebar-meta'},
+        h(MapPinIcon),
+        h('span',null,'Departs from Mumbai')
+      ),
+      h('div',{className:'sidebar-note'},'✈ Flights not included book separately based on your dates'),
+      h('hr',{className:'sidebar-sep'}),
+      h('div',{className:'sidebar-icons-row'},
+        h('div',{className:'sidebar-icon-col'},h(CarIcon),h('div',{className:'sidebar-icon-lbl'},'Tempo Traveler')),
+        h('div',{className:'sidebar-icon-col'},h(HotelBigIcon),h('div',{className:'sidebar-icon-lbl'},'Hotel')),
+        h('div',{className:'sidebar-icon-col'},h(MealsIcon),h('div',{className:'sidebar-icon-lbl'},'Meals')),
+      ),
+    )
+  );
+};
+
+/* ── TAB NAV ── */
+const TABS = [
+  {id:'overview', label:'Overview'},
+  {id:'tour-program', label:'Tour Itinerary'},
+  {id:'tour-price', label:"What's Included"},
+];
+
+const TabNav = ({active, onTabClick}) =>
+  h('div',{className:'tab-nav'},
+    h('div',{className:'tab-nav-inner'},
+      TABS.map(t=>
+        h('button',{
+          key:t.id,
+          className:`tab-btn${active===t.id?' active':''}`,
+          onClick:()=>onTabClick(t.id)
+        },t.label)
+      )
+    )
+  );
+
+/* ── OVERVIEW TAB ── */
+const OverviewTab = () =>
+  h('div',null,
+    h('div',{className:'tp-section'},
+      h('h2',{className:'tp-h2'},'Trip Overview'),
+      h('p',{className:'body-p'},'Leh and Ladakh is not a typical tour it is a high-altitude expedition that requires physical preparation, genuine interest in what you will see, and a willingness to be in a place that operates by a completely different set of rules than anywhere else in India. At 3,524 metres, Leh is higher than most European mountain peaks. The roads to Nubra, Pangong, and Turtuk cross passes above 5,000 metres. The air is thin, the landscape is bare, and the distances are real.'),
+      h('p',{className:'body-p'},'What Ladakh offers in return is unlike anything else accessible by road from India. The monastery tour Lamayuru, Disket, Thiksey, Hemis represents a living Tibetan Buddhist tradition that has been unbroken for over a thousand years. Pangong Lake changes colour by the hour. Turtuk Village is a Balti settlement that was part of Pakistan until 1971 and retains a Central Asian character unlike anything in the rest of India. Khardungla Pass at 18,380 feet is a genuine high-altitude experience, not a manufactured one. The Drass War Memorial places you on the actual terrain of the 1999 Kargil War.'),
+      h('p',{className:'body-p'},'Purvaa handles all ground logistics accommodation across Srinagar, Kargil, Leh, Nubra, and Pangong; a dedicated Tempo Traveler for sightseeing; all meals by our own catering team from Day 1 to Day 7; and a coordinator who knows the route and the passes. Flights are not included because the timing and fare depend on your specific departure date, and we prefer you control that variable directly.')
+    ),
+  );
+
+/* ── TOUR PROGRAM TAB ── */
+const TourProgramTab = () => {
+  const [open, setOpen] = useState(ITINERARY.map((_,i)=>i===0));
+  const toggle = i => setOpen(p=>p.map((v,j)=>j===i?!v:v));
+  return h('div',{className:'tp-section'},
+    h('h2',{className:'tp-h2'},'Tour Itinerary'),
+    h('div',{className:'itin-wrap'},
+      ITINERARY.map((day,i)=>
+        h('div',{key:i,className:'itin-item'},
+          h('div',{className:'itin-track'},
+            h('div',{className:`itin-circle${open[i]?' active':''}`},
+              h('div',{className:'itin-circle-text'},i<9?`0${i+1}`:`${i+1}`)
+            ),
+            i < ITINERARY.length-1 ? h('div',{className:'itin-vline'}) : null
+          ),
+          h('div',{className:'itin-body'},
+            h('div',{className:'itin-row',onClick:()=>toggle(i)},
+              h('div',null,
+                h('div',{className:'itin-day-label'},day.day),
+                h('div',{className:'itin-title'},day.title)
+              ),
+              h('div',{className:`itin-chevron${open[i]?' open':''}`},h(ChevronDown))
+            ),
+            h('div',{className:`itin-expand${open[i]?' open':' closed'}`},
+              h('div',null,
+                h('p',{className:'itin-desc'},day.desc)
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+/* ── TOUR PRICE TAB ── */
+const TourPriceTab = () =>
+  h('div',null,
+    h('div',{className:'tp-section'},
+      h('h2',{className:'tp-h2'},"What's Included"),
+      h('div',{className:'inc-grid'},
+        INCLUDES.map((item,i)=>
+          h('div',{key:i,className:'inc-item'},
+            h('div',{className:'inc-sq'},
+              h('svg',{width:'10',height:'10',viewBox:'0 0 12 12',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('polyline',{points:'2 6 5 9 10 3'}))
+            ),
+            h('span',null,item)
+          )
+        )
+      )
+    ),
+  );
+
+/* ── FOOTER ── */
+const Footer = () => h('footer',{style:{background:'#2d1845'}},
+  h('div',{style:{maxWidth:1200,margin:'0 auto',padding:'60px 80px 48px',display:'grid',gridTemplateColumns:'38% 22% 40%',gap:72}},
+    h('div',{style:{marginTop:'-20px'}},
+      h('img',{src:'../logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
+      h('p',{style:{fontSize:15,color:'rgba(255,255,255,0.68)',lineHeight:1.85,marginBottom:28,fontFamily:"'DM Sans',sans-serif",maxWidth:340}},'Purvaa is the travel management company Mumbai families have trusted since 1996 because we handle everything personally and have maintained our quality standards across 30 years.'),
+      h('button',{
+        onClick:()=>__openModal('Quick Enquiry'),
+        style:{background:'#FEED01',color:'#1A1A1A',border:'none',padding:'14px 30px',borderRadius:6,fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"},
+        onMouseOver:e=>e.currentTarget.style.background='#fff',
+        onMouseOut:e=>e.currentTarget.style.background='#FEED01'
+      },'Quick Enquiry')
+    ),
+    h('div',null,
+      h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:22,fontFamily:"'DM Sans',sans-serif"}},'Quick Links'),
+      ['About Us','Our Tours','Gallery','Contact Us','Privacy Policy','Terms & Conditions'].map(l=>
+        h('a',{
+          key:l,
+          href:l==='Gallery'?'../gallery.html':l==='Contact Us'?'../contact.html':l==='About Us'?'../about.html':l==='Our Tours'?'../our-tours.html':l==='Privacy Policy'?'../privacy-policy.html':l==='Terms & Conditions'?'../terms-conditions.html':'#',
+          style:{display:'block',color:'rgba(255,255,255,0.75)',fontSize:14,textDecoration:'none',marginBottom:14,fontFamily:"'DM Sans',sans-serif",transition:'color .2s'},
+          onMouseOver:e=>e.target.style.color='#FEED01',
+          onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.75)'
+        },l)
+      )
+    ),
+    h('div',{style:{display:'flex',flexDirection:'column',gap:24}},
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:10,fontFamily:"'DM Sans',sans-serif"}},'For Enquiries'),
+        h('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:10}},
+          h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'})),
+          h('a',{href:'tel:+919869272960',style:{color:'rgba(255,255,255,0.82)',fontSize:14,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",transition:'color .2s'},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.82)'},'+91 98692 72960')
+        ),
+        h('div',{style:{display:'flex',alignItems:'center',gap:10}},
+          h('svg',{width:'16',height:'16',viewBox:'0 0 24 24',fill:'none',stroke:'#fff',strokeWidth:'2',strokeLinecap:'round',strokeLinejoin:'round'},h('path',{d:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'}),h('polyline',{points:'22,6 12,13 2,6'})),
+          h('a',{href:'mailto:info.purvaatravels@gmail.com',style:{color:'rgba(255,255,255,0.82)',fontSize:14,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",transition:'color .2s'},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color='rgba(255,255,255,0.82)'},'info.purvaatravels@gmail.com')
+        )
+      ),
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:10,fontFamily:"'DM Sans',sans-serif"}},'Address'),
+        h('p',{style:{fontSize:14,color:'rgba(255,255,255,0.72)',lineHeight:1.75,fontFamily:"'DM Sans',sans-serif",margin:0}},
+          'Sitaram Niwas, 4, Shivadarshan Path,',h('br'),
+          'Nardas Nagar, W, Bhandup West,',h('br'),
+          'Mumbai, Maharashtra 400078'
+        )
+      ),
+      h('div',null,
+        h('div',{style:{fontSize:15,fontWeight:700,color:'#fff',letterSpacing:'.13em',marginBottom:12,fontFamily:"'DM Sans',sans-serif"}},'Connect With Us'),
+        h('div',{style:{display:'flex',gap:10}},
+          [{icon:h(FbIcon),label:'Facebook',href:'https://www.facebook.com/purvaatravelsofficiall/'},{icon:h(IgIcon),label:'Instagram',href:'https://www.instagram.com/purvaatoursandtravels/'}].map(s=>
+            h('a',{
+              key:s.label,href:s.href,target:'_blank',rel:'noopener noreferrer','aria-label':s.label,
+              style:{width:40,height:40,borderRadius:8,background:'rgba(255,255,255,0.1)',display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',transition:'background .2s'},
+              onMouseOver:e=>{e.currentTarget.style.background='#FCE205';},
+              onMouseOut:e=>{e.currentTarget.style.background='rgba(255,255,255,0.1)';}
+            },s.icon)
+          )
+        )
+      )
+    )
+  ),
+  h('div',{style:{borderTop:'1px solid rgba(255,255,255,0.08)',padding:'18px 80px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:10}},
+    h('p',{style:{fontSize:12,color:'rgba(255,255,255,0.38)',fontFamily:"'DM Sans',sans-serif",margin:0}},
+      'All Rights Reserved © 2026 ',
+      h('a',{href:'https://purvaatravels.com/',target:'_blank',style:{color:'rgba(255,255,255,0.38)',textDecoration:'none'}},'purvaatravels.com')
+    )
+  )
+);
+
+/* ── MAIN APP ── */
+const App = () => {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [modal,setModal]=useState(null);
+  __openModal=setModal;
+
+  return h('div',null,
+    modal&&h(EnquiryModal,{tourTitle:modal,onClose:()=>setModal(null)}),
+    h(Navbar),
+    h(PhotoMosaic),
+    h('div',{className:'tp-wrap'},
+      h('div',{className:'tp-layout'},
+        h('div',{className:'tp-content'},
+          h('div',{className:'breadcrumb'},
+            h('a',{href:'../index.html'},'Home'),h('span',null,'>'),
+            h('a',{href:'../our-tours.html'},'Our Tours'),h('span',null,'>'),
+            h('span',{style:{color:'#666'}},'Leh & Ladakh')
+          ),
+          h('h1',{className:'page-title'},'Leh & Ladakh'),
+          h(TabNav,{active:activeTab, onTabClick:setActiveTab}),
+          activeTab === 'overview'     ? h(OverviewTab)    : null,
+          activeTab === 'tour-program' ? h(TourProgramTab) : null,
+          activeTab === 'tour-price'   ? h(TourPriceTab)   : null,
+        ),
+        h('div',{className:'tp-aside'},
+          h(SidebarCard)
+        )
+      )
+    ),
+    h(Footer)
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>
