@@ -149,7 +149,7 @@ const Navbar=()=>{
    ══════════════════════════════════════════ */
 const HeroAbout=()=>h('section',{style:{position:'relative',height:'42vh',minHeight:300,overflow:'hidden',background:'#0d0d0d',display:'flex',alignItems:'flex-end',justifyContent:'flex-start'}},
   h('img',{
-    src:'./about-banner.jpg',
+    src:'./assets/images/about-banner.jpg',
     alt:'Travel',
     style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'center 30%'}
   }),
@@ -182,7 +182,7 @@ const AboutSection=()=>h('section',{style:{
     h(Reveal,{delay:0.15},
       h('div',{style:{display:'flex',alignItems:'center',justifyContent:'flex-end'}},
         h('img',{
-          src:'./founder2.png',
+          src:'./assets/images/founder2.png',
           alt:'Arun Rane — Founder, Purvaa Tours & Travels',
           style:{width:'100%',maxWidth:420,display:'block'}
         })
@@ -223,12 +223,12 @@ const StatsBar=()=>{
    ══════════════════════════════════════════ */
 const WhyPurvaa=()=>{
   const items=[
-    {icon:h('img',{src:'./experience-icon.png',alt:'30 Years Experience',style:{width:88,height:88,objectFit:'contain',mixBlendMode:'multiply'}}),title:'30 Years Experience',desc:['We know the routes better than',h('br'),'most people know their own city.']},
-    {icon:h('img',{src:'./packages-icon.png',alt:'All-Inclusive Packages',style:{width:88,height:88,objectFit:'contain',mixBlendMode:'multiply'}}),title:'All-Inclusive Packages',desc:['Transport, meals, stays, temple coordination',h('br'),'are all in one price. Nothing is added later.']},
-    {icon:h('img',{src:'./tour-manager-icon.png',alt:'Dedicated Tour Manager',style:{width:68,height:68,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Dedicated Tour Manager',desc:['A Purvaa coordinator travels with your group',h('br'),'from Mumbai departure to the return drop-off.']},
-    {icon:h('img',{src:'./departures-icon.png',alt:'Flexible Departures',style:{width:72,height:72,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Flexible Departures',desc:['Pick what suits your family',h('br'),'and we handle the rest.']},
-    {icon:h('img',{src:'./support-icon.png',alt:'24x7 Support',style:{width:52,height:52,objectFit:'contain',mixBlendMode:'multiply'}}),title:'24x7 Support',desc:['Reach us anytime you need.',h('br'),'Our team is available 24x7.']},
-    {icon:h('img',{src:'./catering-icon.png',alt:'Catering on Board',style:{width:90,height:90,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Catering on Board',desc:['Home cooked vegetarian meals on every tour',h('br'),'served while travelling.']},
+    {icon:h('img',{src:'./assets/images/experience-icon.png',alt:'30 Years Experience',style:{width:88,height:88,objectFit:'contain',mixBlendMode:'multiply'}}),title:'30 Years Experience',desc:['We know the routes better than',h('br'),'most people know their own city.']},
+    {icon:h('img',{src:'./assets/images/packages-icon.png',alt:'All-Inclusive Packages',style:{width:88,height:88,objectFit:'contain',mixBlendMode:'multiply'}}),title:'All-Inclusive Packages',desc:['Transport, meals, stays, temple coordination',h('br'),'are all in one price. Nothing is added later.']},
+    {icon:h('img',{src:'./assets/images/tour-manager-icon.png',alt:'Dedicated Tour Manager',style:{width:68,height:68,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Dedicated Tour Manager',desc:['A Purvaa coordinator travels with your group',h('br'),'from Mumbai departure to the return drop-off.']},
+    {icon:h('img',{src:'./assets/images/departures-icon.png',alt:'Flexible Departures',style:{width:72,height:72,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Flexible Departures',desc:['Pick what suits your family',h('br'),'and we handle the rest.']},
+    {icon:h('img',{src:'./assets/images/support-icon.png',alt:'24x7 Support',style:{width:52,height:52,objectFit:'contain',mixBlendMode:'multiply'}}),title:'24x7 Support',desc:['Reach us anytime you need.',h('br'),'Our team is available 24x7.']},
+    {icon:h('img',{src:'./assets/images/catering-icon.png',alt:'Catering on Board',style:{width:90,height:90,objectFit:'contain',mixBlendMode:'multiply'}}),title:'Catering on Board',desc:['Home cooked vegetarian meals on every tour',h('br'),'served while travelling.']},
   ];
   return h('section',{style:{background:'#F8F9F6',padding:'88px 40px'}},
     h('div',{style:{maxWidth:1380,margin:'0 auto'}},
