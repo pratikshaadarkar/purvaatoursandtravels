@@ -1,0 +1,35 @@
+# macOS files
+.DS_Store
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+Thumbs.db
+desktop.ini
+.env.local
+.env.*.local
+
+# Development directories
+node_modules/
+outputs/
+github/
+dist/
+build/
+
+# Temporary files
+*.log
+*.tmp
+*.bak
