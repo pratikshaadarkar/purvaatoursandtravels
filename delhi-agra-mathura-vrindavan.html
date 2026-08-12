@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -41,7 +42,7 @@
     .page-title{font-size:42px;font-weight:800;color:#1A1A1A;line-height:1.2;margin-bottom:20px}
 
     /* ── TAB NAV ── */
-    .tab-nav{position:sticky;top:114px;z-index:900;background:#432267;border-bottom:2px solid #432267;box-shadow:0 2px 8px rgba(67,34,103,0.07);margin:0 -40px;padding:0 40px}
+    .tab-nav{position:sticky;top:86px;z-index:900;background:#432267;border-bottom:2px solid #432267;box-shadow:0 2px 8px rgba(67,34,103,0.07);margin:0 -40px;padding:0 40px}
     .tab-nav-inner{display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
     .tab-nav-inner::-webkit-scrollbar{display:none}
     .tab-btn{display:inline-flex;align-items:center;padding:16px 22px;font-size:14px;font-weight:600;color:rgba(255,255,255,0.75);cursor:pointer;border:none;background:none;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s;font-family:'DM Sans',sans-serif;letter-spacing:.01em}
@@ -244,37 +245,30 @@ const EnquiryModal=({tourTitle,onClose})=>{
   );
 };
 
-const Navbar = () => {
+/* NAVBAR */
+const NAV_LINKS = ['About Us','Our Tours','Gallery','Contact Us'];
+const NAV_HREFS = {'Contact Us':'contact.html','Our Tours':'our-tours.html','Gallery':'gallery.html','About Us':'about.html'};
+
+const Navbar=()=>{
   useNavShadow();
-  const [activeLink,setActiveLink] = useState('Our Tours');
+  const [activeLink,setActiveLink]=useState('Our Tours');
+  const [menuOpen,setMenuOpen]=useState(false);
   return h('nav',{className:'nav-bar'},
-    h('div',{style:{maxWidth:1280,margin:'0 auto',padding:'14px 40px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:24}},
-      h('a',{href:'../index.html',style:{display:'flex',alignItems:'center',flexShrink:0,textDecoration:'none'}},
+    h('div',{className:'nav-inner'},
+      h('a',{href:'./',className:'nav-logo'},
         h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{height:86,width:'auto',display:'block'}})
       ),
-      h('div',{style:{display:'flex',alignItems:'center',gap:32,fontSize:18,fontWeight:500}},
-        ['About Us','Our Tours','Gallery','Contact Us'].map(l=>
-          h('a',{
-            key:l,
-            href:l==='Contact Us'?'./contact':l==='Gallery'?'./gallery':l==='Our Tours'?'./our-tours':'./about',
-            style:{color:activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',textDecoration:'none',transition:'color .2s',fontFamily:"'DM Sans',sans-serif",whiteSpace:'nowrap'},
-            onMouseOver:e=>e.target.style.color='#FEED01',
-            onMouseOut:e=>e.target.style.color=activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',
-            onClick:()=>setActiveLink(l)
-          },l)
+      h('button',{className:'ham-btn',onClick:()=>setMenuOpen(m=>!m),'aria-label':'Menu'},menuOpen?'✕':'☰'),
+      h('div',{className:`nav-menu${menuOpen?' open':''}`},
+        h('div',{className:'nav-links-wrap'},
+          NAV_LINKS.map(l=>
+            h('a',{key:l,href:NAV_HREFS[l]||'#',style:{color:activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',textDecoration:'none',transition:'color .2s',fontFamily:"'DM Sans',sans-serif",fontSize:18,fontWeight:500},onMouseOver:e=>e.target.style.color='#FEED01',onMouseOut:e=>e.target.style.color=activeLink===l?'#FEED01':'rgba(255,255,255,0.88)',onClick:()=>setActiveLink(l)},l)
+          )
+        ),
+        h('div',{className:'nav-actions'},
+          h('a',{href:'tel:+919869272960',style:{color:'#FEED01',fontSize:16,fontWeight:600,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',display:'flex',alignItems:'center',gap:7,borderBottom:'2px solid transparent',transition:'border-color .2s'},onMouseOver:e=>e.target.style.borderBottom='2px solid #FEED01',onMouseOut:e=>e.target.style.borderBottom='2px solid transparent'},h(PhoneIcon),'+91 98692 72960'),
+          h('button',{onClick:()=>__openModal('Plan My Trip'),style:{background:'#fff',color:'#432267',border:'none',padding:'11px 26px',borderRadius:5,fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',transition:'background .2s'},onMouseOver:e=>e.currentTarget.style.background='#FEED01',onMouseOut:e=>e.currentTarget.style.background='#fff'},'Plan My Trip')
         )
-      ),
-      h('div',{style:{display:'flex',alignItems:'center',gap:22,flexShrink:0}},
-        h('a',{
-          href:'tel:+919869272960',
-          style:{color:'#FEED01',fontSize:16,fontWeight:600,textDecoration:'none',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',display:'flex',alignItems:'center',gap:7}
-        },h(PhoneIcon),'+91 98692 72960'),
-        h('button',{
-          onClick:()=>__openModal('Plan My Trip'),
-          style:{background:'#fff',color:'#432267',border:'none',padding:'11px 26px',borderRadius:5,fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.01em',transition:'background .2s'},
-          onMouseOver:e=>e.currentTarget.style.background='#FEED01',
-          onMouseOut:e=>e.currentTarget.style.background='#fff'
-        },'Plan My Trip')
       )
     )
   );
@@ -401,7 +395,7 @@ const TourPriceTab = () =>
 
 /* ── FOOTER ── */
 const Footer = () => h('footer',{style:{background:'#2d1845'}},
-  h('div',{style:{maxWidth:1200,margin:'0 auto',padding:'60px 80px 48px',display:'grid',gridTemplateColumns:'38% 22% 40%',gap:72}},
+  h('div',{className:'footer-grid'},
     h('div',{style:{marginTop:'-20px'}},
       h('img',{src:'./assets/images/logo/white-logo-transparent.png',alt:'Purvaa Tours & Travels',style:{width:220,display:'block',marginBottom:20,opacity:0.92}}),
       h('p',{style:{fontSize:15,color:'rgba(255,255,255,0.68)',lineHeight:1.85,marginBottom:28,fontFamily:"'DM Sans',sans-serif",maxWidth:340}},'Purvaa is the travel management company Mumbai families have trusted since 1996 because we handle everything personally and have maintained our quality standards across 30 years.'),
@@ -459,7 +453,7 @@ const Footer = () => h('footer',{style:{background:'#2d1845'}},
       )
     )
   ),
-  h('div',{style:{borderTop:'1px solid rgba(255,255,255,0.08)',padding:'18px 80px',display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:10}},
+  h('div',{style:{borderTop:'1px solid rgba(255,255,255,0.08)',padding:'18px 80px',display:'flex',justifyContent:'center',alignItems:'center',flexWrap:'wrap',gap:10}},
     h('p',{style:{fontSize:12,color:'rgba(255,255,255,0.38)',fontFamily:"'DM Sans',sans-serif",margin:0}},
       'All Rights Reserved © 2026 ',
       h('a',{href:'https://purvaatravels.com/',target:'_blank',style:{color:'rgba(255,255,255,0.38)',textDecoration:'none'}},'purvaatravels.com')
