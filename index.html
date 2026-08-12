@@ -215,9 +215,9 @@ const TrustStrip=()=>{
 /* VERTICALS */
 const Verticals=()=>{
   const cards=[
-    {title:'Corporate Tours & MICE',desc:'Team outings, incentive trips, dealer meets and MICE events, fully managed from pickup to drop.',img:'./assets/images/tour-images/corporate-tours.jpg',href:'./a-corporate-tours.html'},
-    {title:'Educational Tours & Outdoor Camping',desc:'School and college programmes: overnight nature camps, field visits and day trips across Maharashtra and beyond.',img:'./assets/images/tour-images/educational-tours.jpeg',href:'./a-educational-tours.html'},
-    {title:'Industrial Visits',desc:'Curriculum-aligned factory and industry visits for schools and colleges, with transport, entry and escort included.',img:'./assets/images/tour-images/industrial-visits.jpg',href:'./a-industrial-visit.html'},
+    {title:'Corporate Tours & MICE',desc:'Team outings, incentive trips, dealer meets and MICE events, fully managed from pickup to drop.',img:'./assets/images/tour-images/corporate-tours.jpg',href:'./corporate-tours'},
+    {title:'Educational Tours & Outdoor Camping',desc:'School and college programmes: overnight nature camps, field visits and day trips across Maharashtra and beyond.',img:'./assets/images/tour-images/educational-tours.jpeg',href:'./educational-tours'},
+    {title:'Industrial Visits',desc:'Curriculum-aligned factory and industry visits for schools and colleges, with transport, entry and escort included.',img:'./assets/images/tour-images/industrial-visits.jpg',href:'./industrial-visit'},
   ];
   const TourCard=({c})=>h('a',{href:c.href,style:{background:'#fff',borderRadius:14,boxShadow:'0 2px 16px rgba(0,0,0,0.08)',overflow:'hidden',display:'flex',flexDirection:'column',transition:'transform .2s, box-shadow .2s',textDecoration:'none',cursor:'pointer'},onMouseEnter:e=>{e.currentTarget.style.transform='translateY(-4px)';e.currentTarget.style.boxShadow='0 12px 32px rgba(0,0,0,0.14)';},onMouseLeave:e=>{e.currentTarget.style.transform='translateY(0)';e.currentTarget.style.boxShadow='0 2px 16px rgba(0,0,0,0.08)';}},
     h('div',{style:{position:'relative',height:210,flexShrink:0}},
