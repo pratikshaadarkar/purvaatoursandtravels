@@ -186,11 +186,12 @@
     }
 
     /* ── TRUST SECTION (testimonials/reviews) ── */
-    /* Mobile + small tablet: 1 card per slide, readable padding */
+    /* perPage is JS-driven (1/2/3); CSS only adjusts padding */
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .idx-trust-inner { padding: 0 24px !important; }
+    }
     @media (max-width: 900px) {
       .idx-trust-inner { padding: 0 16px !important; }
-      .idx-reviews-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
-      .idx-reviews-grid > *:nth-child(n+2) { display: none !important; }
     }
 
     /* ── FOOTER grid + copyright bar ── */
@@ -593,7 +594,14 @@ const StatBlock=({s,vis})=>{
 
 /* TRUST SECTION */
 const TrustSection=()=>{
+  const getPerPage=()=>window.innerWidth<=900?1:window.innerWidth<=1100?2:3;
   const [slide,setSlide]=useState(0);
+  const [perPage,setPerPage]=useState(getPerPage);
+  useEffect(()=>{
+    const onResize=()=>{setPerPage(getPerPage());setSlide(0);};
+    window.addEventListener('resize',onResize);
+    return ()=>window.removeEventListener('resize',onResize);
+  },[]);
   const [statsRef,statsVis]=useInView(0.15);
   const stats=[
     {n:30,suffix:'+',label:'Years of Operation',desc:'Continuous group travel for Mumbai families since 1996',icon:h(CalendarIcon,{size:36})},
@@ -609,10 +617,11 @@ const TrustSection=()=>{
     {quote:'"Thanks for everything, you\'re the best."',name:'Vaibhav Bhoye'},
     {quote:'"Very nice."',name:'Shreya Khamkar'},
   ];
-  const totalPages=Math.ceil(reviews.length/3);
+  const totalPages=Math.ceil(reviews.length/perPage);
   const prev=()=>setSlide(s=>(s-1+totalPages)%totalPages);
   const next=()=>setSlide(s=>(s+1)%totalPages);
-  const vis3=reviews.slice(slide*3,slide*3+3);
+  const vis3=reviews.slice(slide*perPage,slide*perPage+perPage);
+  const gridCols=perPage===1?'1fr':perPage===2?'1fr 1fr':'1fr 1fr 1fr';
   return h('section',{style:{background:'#ffffff',padding:'72px 0'}},
     h('div',{className:'idx-trust-inner',style:{maxWidth:1400,margin:'0 auto',padding:'0 40px'}},
       h('div',{style:{textAlign:'center',marginBottom:56}},
@@ -620,7 +629,7 @@ const TrustSection=()=>{
       ),
       h('div',{style:{display:'flex',alignItems:'center',gap:16}},
         h(ArrowBtn,{onClick:prev},'←'),
-        h('div',{className:'idx-reviews-grid',style:{flex:1,display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:18}},
+        h('div',{className:'idx-reviews-grid',style:{flex:1,display:'grid',gridTemplateColumns:gridCols,gap:18}},
           vis3.map((t,i)=>h('div',{key:i,style:{background:'#fff',border:'1px solid rgba(67,34,103,0.10)',borderRadius:12,padding:'28px 24px',display:'flex',flexDirection:'column',boxShadow:'0 2px 14px rgba(67,34,103,0.08)'}},
             h('div',{style:{marginBottom:14}},[1,2,3,4,5].map(n=>h('span',{key:n,style:{color:'#F4A820',fontSize:15}},'★'))),
             h('p',{style:{fontSize:14,color:'#3A3A3A',lineHeight:1.78,fontStyle:'italic',flex:1,marginBottom:22,fontFamily:"'DM Sans',sans-serif"}},t.quote),
