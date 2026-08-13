@@ -137,6 +137,71 @@
     @media(max-width:1100px){
       footer>div:last-child{padding-left:40px !important;padding-right:40px !important}
     }
+  
+
+    /* ── MOBILE RESPONSIVE FIX ── */
+
+    /* 1. Tab-nav sticky top: match actual mobile navbar height (60px) */
+    @media(max-width:900px){
+      .tab-nav{top:60px}
+    }
+
+    /* 2. Tab buttons: FIX SAFARI OVERFLOW - allow wrapping and shrinking on mobile */
+    @media(max-width:768px){
+      .tab-btn{white-space:normal !important;flex-shrink:1;padding:12px 14px;font-size:13px}
+      .tab-nav-inner{flex-wrap:wrap}
+    }
+
+    /* 3. Tab-nav margin: match tp-wrap padding at all breakpoints to prevent layout shift */
+    @media(max-width:1024px){
+      .tab-nav{margin:0 -40px !important;padding:0 40px !important}
+    }
+    @media(max-width:640px){
+      .tab-nav{margin:0 -20px !important;padding:0 20px !important;box-sizing:border-box}
+      .tab-btn{padding:10px 10px;font-size:12px}
+    }
+
+    /* 4. Newsletter and destinations strip: reduce side padding on mobile */
+    @media(max-width:640px){
+      .newsletter-inner{padding-left:20px !important;padding-right:20px !important}
+      .dest-strip-inner{padding-left:20px !important;padding-right:20px !important}
+    }
+
+    /* 5. Price table: horizontal scroll on mobile instead of overflowing */
+    @media(max-width:768px){
+      .price-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:normal}
+      .price-table td:last-child{white-space:nowrap}
+    }
+
+    /* 6. Highlights grid: single column on very small screens */
+    @media(max-width:400px){
+      .highlights-grid{grid-template-columns:1fr !important}
+    }
+
+    /* 7. Prevent long words from breaking layout on all text elements */
+    .body-p,.itin-desc,.itin-title,.trust-desc,.highlight-text,
+    .inc-item span,.exc-item span,.breadcrumb,.page-title,
+    .sidebar-meta span,.price-note{
+      overflow-wrap:break-word;word-break:break-word
+    }
+
+    /* 8. Info-bar: single column on very small screens */
+    @media(max-width:400px){
+      .info-bar-item{flex:0 0 100% !important}
+    }
+
+    /* 9. Ensure main content containers don't exceed viewport */
+    @media(max-width:640px){
+      .tp-wrap{box-sizing:border-box;width:100%}
+      .tp-layout,.tp-content,.tp-aside{max-width:100%}
+      .newsletter-bar,.dest-strip{max-width:100%;overflow-x:hidden}
+    }
+
+    /* 10. Safari iOS viewport fix */
+    @media(max-width:768px){
+      html,body{overflow-x:hidden;max-width:100vw}
+    }
+
   </style>
 </head>
 <body>
