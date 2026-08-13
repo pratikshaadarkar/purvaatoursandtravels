@@ -101,6 +101,23 @@
     .nav-bar{position:fixed !important;top:0 !important;left:0 !important;right:0 !important;width:100%;z-index:999}
     .mosaic{margin-top:86px}
     @media(max-width:900px){.mosaic{margin-top:60px}}
+  
+    /* ── FOOTER RESPONSIVE ── */
+    /* Tablet: 2-column layout */
+    @media(max-width:1100px){
+      .footer-grid{grid-template-columns:1fr 1fr !important;gap:40px !important;padding:48px 40px !important}
+    }
+    /* Mobile: 1-column layout */
+    @media(max-width:768px){
+      .footer-grid{grid-template-columns:1fr !important;gap:32px !important;padding:40px 20px 32px !important}
+    }
+    /* Copyright bar: override inline padding on small screens */
+    @media(max-width:768px){
+      footer>div:last-child{padding-left:20px !important;padding-right:20px !important}
+    }
+    @media(max-width:1100px){
+      footer>div:last-child{padding-left:40px !important;padding-right:40px !important}
+    }
   </style>
 </head>
 <body>
