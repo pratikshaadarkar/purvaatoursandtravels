@@ -114,7 +114,8 @@
     }
 
     /* ── MOST LOVED JOURNEYS ── */
-    @media (max-width: 768px) {
+    /* Mobile + small tablet: 1 card per slide */
+    @media (max-width: 900px) {
       .idx-journey-wrap { padding: 0 16px !important; }
       .idx-journey-grid { grid-template-columns: 1fr !important; }
       .idx-journey-grid > *:nth-child(n+2) { display: none !important; }
@@ -126,6 +127,15 @@
     }
 
     /* ── VERTICALS (Where Would You Like to Go) ── */
+    /* Tablet: 2 columns */
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .idx-verticals-sect { padding: 48px 24px 56px !important; }
+      .idx-verticals-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+      }
+    }
+    /* Mobile: 1 column */
     @media (max-width: 768px) {
       .idx-verticals-sect { padding: 48px 16px 56px !important; }
       .idx-verticals-grid {
@@ -135,6 +145,15 @@
     }
 
     /* ── REASSURANCE (A Complete Travel Experience) ── */
+    /* Tablet: 2 columns */
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .idx-reassurance-sect { padding: 48px 24px !important; }
+      .idx-reassurance-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+      }
+    }
+    /* Mobile: 1 column */
     @media (max-width: 768px) {
       .idx-reassurance-sect { padding: 48px 16px !important; }
       .idx-reassurance-grid {
@@ -155,7 +174,8 @@
     }
 
     /* ── TRUST SECTION (testimonials/reviews) ── */
-    @media (max-width: 768px) {
+    /* Mobile + small tablet: 1 card per slide, readable padding */
+    @media (max-width: 900px) {
       .idx-trust-inner { padding: 0 16px !important; }
       .idx-reviews-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
       .idx-reviews-grid > *:nth-child(n+2) { display: none !important; }
