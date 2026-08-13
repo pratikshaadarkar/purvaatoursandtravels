@@ -117,11 +117,20 @@
     }
 
     /* ── MOST LOVED JOURNEYS ── */
-    /* Mobile + small tablet: 1 card per slide */
+    /* perPage is JS-driven (1/2/3); CSS only adjusts padding */
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .idx-journey-wrap { padding: 0 24px !important; }
+    }
     @media (max-width: 900px) {
       .idx-journey-wrap { padding: 0 16px !important; }
-      .idx-journey-grid { grid-template-columns: 1fr !important; }
-      .idx-journey-grid > *:nth-child(n+2) { display: none !important; }
+    }
+    /* Journey card buttons: equal height, no text-wrap at any card width */
+    .journey-btns > a {
+      min-height: 44px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
     }
 
     /* ── TRUST STRIP (logo marquee heading) ── */
@@ -467,7 +476,14 @@ const TrendingDests=()=>{
 
 /* MOST LOVED JOURNEYS */
 const MostLovedJourneys=()=>{
+  const getPerPage=()=>window.innerWidth<=900?1:window.innerWidth<=1100?2:3;
   const [slide,setSlide]=useState(0);
+  const [perPage,setPerPage]=useState(getPerPage);
+  useEffect(()=>{
+    const onResize=()=>{setPerPage(getPerPage());setSlide(0);};
+    window.addEventListener('resize',onResize);
+    return ()=>window.removeEventListener('resize',onResize);
+  },[]);
   const journeys=[
     {title:'Ashtavinayak',dur:'2 Nights / 3 Days',desc:'Eight Ganesh temples across the Western Ghats and Deccan plateau. Purvaa catering on the coach throughout. Planned from three decades of experience.',img:'./assets/images/tour-images/ashtavinayak.jpg',href:'./ashtavinayak'},
     {title:'Char Dham Yatra 2025',dur:'11 Nights / 12 Days',desc:'Kedarnath, Badrinath, Gangotri, Yamunotri. The most complete Char Dham trip from Mumbai with Purvaa Tours & Travels and catering throughout.',img:'./assets/images/tour-images/chardhamyatra.png',href:'./char-dham-yatra'},
@@ -476,17 +492,18 @@ const MostLovedJourneys=()=>{
     {title:'Kashmir, Vaishno Devi & Amritsar',dur:'12 Nights / 13 Days',desc:'Amritsar\'s Golden Temple, Mata Vaishno Devi, and Kashmir\'s valleys: Pahalgam, Gulmarg, Srinagar, Sonmarg. Purvaa\'s most complete northern journey.',img:'./assets/images/tour-images/vaishnodevi.jpg',href:'./kashmir-vaishnodevi-amritsar'},
     {title:'Kerala, Kanyakumari, Rameshwaram & Madurai',dur:'11 Nights / 12 Days',desc:'Cochin, Munnar, Thekkady, Padmanabhswamy, Kanyakumari, Rameshwaram Jyotirlinga, and Meenakshi Amman. The complete South India journey.',img:'./assets/images/tour-images/madurai.jpg',href:'./kerala-kanyakumari-rameshwaram-madurai'},
   ];
-  const pages=Math.ceil(journeys.length/3);
+  const pages=Math.ceil(journeys.length/perPage);
   const prev=()=>setSlide(s=>(s-1+pages)%pages);
   const next=()=>setSlide(s=>(s+1)%pages);
-  const vis=journeys.slice(slide*3,slide*3+3);
+  const vis=journeys.slice(slide*perPage,slide*perPage+perPage);
+  const gridCols=perPage===1?'1fr':perPage===2?'1fr 1fr':'1fr 1fr 1fr';
   return h('section',{style:{background:'#fff',padding:'72px 0'}},
     h('div',{className:'idx-journey-wrap',style:{maxWidth:1400,margin:'0 auto',padding:'0 40px'}},
       h('h2',{style:{fontSize:30,fontWeight:700,color:'#1A1A1A',marginBottom:10,textAlign:'center'}},'Most Recommended By Our Travellers'),
       h('p',{style:{fontSize:16,color:'#6B6B6B',textAlign:'center',maxWidth:680,margin:'0 auto 44px'}},'We have made travel easy for thousands of groups. Whether it is a family trip or a corporate tour, we make sure everything goes perfectly for you.'),
       h('div',{style:{display:'flex',alignItems:'center',gap:16,marginBottom:28}},
         h(ArrowBtn,{onClick:prev},'←'),
-        h('div',{className:'idx-journey-grid',style:{flex:1,display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:22}},
+        h('div',{className:'idx-journey-grid',style:{flex:1,display:'grid',gridTemplateColumns:gridCols,gap:22}},
           vis.map((j,i)=>h('a',{key:i,href:j.href,className:'journey-card',style:{textDecoration:'none',color:'inherit',display:'flex',flexDirection:'column',cursor:'pointer'}},
             h('div',{style:{height:210,flexShrink:0,overflow:'hidden',borderRadius:'10px 10px 0 0'}},
               h('img',{src:j.img,alt:j.title,style:{width:'100%',height:'100%',objectFit:'cover',display:'block'}})
@@ -495,7 +512,7 @@ const MostLovedJourneys=()=>{
               h('h3',{style:{fontSize:20,fontWeight:700,color:'#1A1A1A',marginBottom:6,lineHeight:1.3}},j.title),
               h('div',{style:{fontSize:14,color:'#6B6B6B',marginBottom:12}},j.dur),
               h('p',{style:{fontSize:14,color:'#4A4A4A',lineHeight:1.65,marginBottom:0,flex:1}},j.desc),
-              h('div',{style:{display:'flex',gap:10,flexWrap:'wrap',marginTop:20}},
+              h('div',{className:'journey-btns',style:{display:'flex',gap:10,flexWrap:'wrap',marginTop:20}},
                 h('a',{href:j.href,onClick:e=>e.stopPropagation(),style:{flex:1,border:'1.5px solid #432267',color:'#432267',background:'transparent',padding:'10px 14px',borderRadius:6,fontSize:14,fontWeight:600,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",textAlign:'center',textDecoration:'none',display:'block'}},'View Tour Details'),
                 h('a',{href:`https://wa.me/919869272960?text=Interested%20in%20${encodeURIComponent(j.title)}`,target:'_blank',style:{flex:1,background:'#FEED01',color:'#432267',border:'1.5px solid #FEED01',padding:'10px 14px',borderRadius:6,fontSize:14,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",letterSpacing:'.02em',textAlign:'center',textDecoration:'none',display:'block'}},'Enquire Now')
               )
